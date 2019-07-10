@@ -121,6 +121,20 @@ public class User {
 		return "User [ID_usr=" + ID_usr + ", name=" + name + ", surname=" + surname + ", email=" + email + ", password="
 				+ password + ", birthDate=" + birthDate + ", gender=" + gender + "]";
 	}
+
+
+	public Collection<Marathon> getMarathons() {
+		return marathons;
+	}
+
+
+	public void setMarathons(Collection<Marathon> marathons) {
+		this.marathons = marathons;
+	}
+	
+	public void addMarathonToCollection(Marathon marathon) {
+		marathons.add(marathon);
+	}
 	
 	
 	

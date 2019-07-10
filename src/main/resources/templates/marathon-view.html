@@ -22,7 +22,8 @@
 		         <td th:text="${marathon.getTime()} + ' (time)'"></td>
 		         <td>
 		          <form action="#" th:action="@{/u/marathon-view/__${id}__}" th:object="${marathon}" method="post">
-		          <input type="submit" value="Run" />
+
+		          <input type="submit" value="Run" th:field="*{id}"/>
 		          </form>
 		         </td>
 		      </tr>

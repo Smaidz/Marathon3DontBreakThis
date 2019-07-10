@@ -47,10 +47,17 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 	
-	public void addParticipantToMarathon(User user, Marathon marathon) {
-		User uTemp = userRepo.findById(user.getID_usr()).get();
-		//Marathon mTemp = marathonRepo.findById(marathon.getId()).get();
-		//uTemp.
+	@Override
+	public boolean addParticipantToMarathon(long id, Marathon marathon) {
+		User uTemp = userRepo.findById(id).get();
+		Marathon mTemp = marathonRepo.findById(marathon.getId()).get();
+		if(uTemp != null && mTemp != null) {
+			uTemp.addMarathonToCollection(marathon);
+			//mTemp.addMarathonParticipant(user);
+			return true;
+		} else
+			return false;
+		
 		
 		
 		

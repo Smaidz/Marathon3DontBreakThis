@@ -10,5 +10,6 @@ public interface UserService {
 	boolean addNewUser(User user);
 	ArrayList<Marathon> findAllMarathons();
 	User findByEmailAndPassword(User user);
+	boolean addParticipantToMarathon(long id, Marathon marathon);
 
 }

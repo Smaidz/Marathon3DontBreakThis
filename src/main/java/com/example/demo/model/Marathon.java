@@ -140,6 +140,30 @@ public class Marathon {
 		return "Marathon [id=" + ID_mar + ", name=" + name + ", distance=" + distance + ", place=" + place + ", date="
 				+ date + ", time=" + time + "]";
 	}
+
+
+	public Collection<User> getMarathonParticipants() {
+		return marathonParticipants;
+	}
+
+
+	public void setMarathonParticipants(Collection<User> marathonParticipants) {
+		this.marathonParticipants = marathonParticipants;
+	}
+	
+	public void addMarathonParticipant(User user) {
+		marathonParticipants.add(user);
+	}
+
+
+	public Organizer getOrganizer() {
+		return organizer;
+	}
+
+
+	public void setOrganizer(Organizer organizer) {
+		this.organizer = organizer;
+	}
 	
 	
 	

@@ -60,15 +60,16 @@ public class UserController {
 	}
 	
 	@GetMapping(value="/marathon-view/{id}")
-	public String marathonViewAuthorised(@PathVariable(name = "id") long id, Model model) {
+	public String marathonViewAuthorised(@PathVariable(name = "id") long id, Model model, Marathon marathon) {
 		model.addAttribute("allMarathons", userServiceImpl.findAllMarathons());
 		return"marathon-view";
 	}
 	
 	@PostMapping(value="/marathon-view/{id}")
-	public String participateInMarathon() {
-		
-		return "";
+	public String participateInMarathon(@PathVariable(name = "id") long usr_id, Marathon marathon) {
+		System.out.println(usr_id +" " + marathon.getId());
+		userServiceImpl.addParticipantToMarathon(usr_id,marathon);
+		return "redirect:/u/my-marathons";
 	}
 	
 	
