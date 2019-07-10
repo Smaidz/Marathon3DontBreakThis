@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -64,6 +65,10 @@ public class User {
 	
 	@ManyToMany(mappedBy="marathonParticipants")
 	Collection<Marathon> marathons;
+	
+	@OneToMany(mappedBy="user")
+	private Collection<Results> results;
+	
 	
 	public User() {}
 	

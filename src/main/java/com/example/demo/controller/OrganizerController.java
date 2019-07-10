@@ -10,16 +10,45 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.model.Marathon;
+import com.example.demo.model.Results;
 import com.example.demo.services.OrganizerServiceImpl;
+import com.example.demo.services.UserServiceImpl;
 
 @Controller
-@RequestMapping(value="/o")
+@RequestMapping(value="/o", method=RequestMethod.GET)
 public class OrganizerController {
 	
 	@Autowired
 	OrganizerServiceImpl organizerServiceImpl;
+	
+	@Autowired
+	UserServiceImpl userServiceImpl;
+	
+	
+	
+	
+	@GetMapping(value="	/add-result")
+	public String addResult(Marathon marathon, Model model) {
+		model.addAttribute("allUsers", organizerServiceImpl.selectAllUsers());
+		model.addAttribute("allMarathons", userServiceImpl.findAllMarathons());
+		return "add-result";
+	}
+	
+	@PostMapping(value="/add-result")
+	public String addNewResultPost(@Valid Results results, BindingResult bindingResult) {
+		
+		if(bindingResult.hasErrors())
+			return "/add-result";
+		
+		organizerServiceImpl.insertNewResult(results);
+		return "add-result";
+	}
+	
+	
+	
 	
 	@GetMapping(value="/add-marathon")
 	public String addNewCar(Marathon marathon) {

@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -71,17 +72,20 @@ public class Marathon {
 	@JoinColumn(name="Id_org")
 	private Organizer organizer;
 	
+	@OneToMany(mappedBy="marathon")
+	private Collection<Results> results;
+	
 	public Marathon() {
 		
 	}
 
 	
 	public Marathon(String n, int dis, String p, String dat, int t) {
-		name = n;
-		distance= dis;
-		place = p;
-		date= dat;
-		time=t;
+		this.name = n;
+		this.distance= dis;
+		this.place = p;
+		this.date= dat;
+		this.time=t;
 	}
 	
 	

@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Marathon;
 
 import com.example.demo.model.Organizer;
+import com.example.demo.model.Results;
+import com.example.demo.model.User;
 import com.example.demo.repo.MarathonRepo;
 import com.example.demo.repo.OrganizerRepo;
+import com.example.demo.repo.ResultsRepo;
+import com.example.demo.repo.UserRepo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +36,24 @@ public class OrganizerServiceImpl implements OrganizerService{
 
 	@Autowired
 	MarathonRepo marathonRepo;
+	@Autowired
+	ResultsRepo resultsRepo;
+	@Autowired
+	UserRepo userRepo;
+	
+	@Override
+	public ArrayList<User> selectAllUsers() {
+		ArrayList<User> tempList = new ArrayList<User>();
+		for (User o:userRepo.findAll())
+		{
+			tempList.add(o);
+		}
+		return tempList;
+	}
+	
+	
+	
+	
 	@Override
 	public boolean insertNewMarathon(Marathon marathon) {
 		if(marathon == null) {
@@ -42,6 +64,20 @@ public class OrganizerServiceImpl implements OrganizerService{
 			return false;
 		}else {
 			marathonRepo.save(marathon);
+			return false;
+		}
+	}
+	@Override
+	public boolean insertNewResult(Results results) {
+		if(results == null) {
+			return false;
+		}
+		Results resultTemp = resultsRepo.findByUserAndMarathonAndDisqualifiedAndResult
+				(results.getUser(), results.getMarathon(), results.isDisqualified(), results.getResult());
+		if(resultTemp != null) {
+			return false;
+		}else {
+			resultsRepo.save(results);
 			return false;
 		}
 	}

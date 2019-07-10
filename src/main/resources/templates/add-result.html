@@ -12,60 +12,56 @@
 	
 	<body>
 	
-	<h1 class="animated jello infinite slower" style="text-align:center;margin-top:25px;">Add Marathon</h1>
 	<div id="centerF">
-	
-	<div id="center">
-		<form action="#" th:action="@{/o/add-marathon}" th:object="${marathon}" method="post"> 
-		
-		<table>
-		
-		<tr>
-		<td>Name</td>
-			<td><input class="form-control" type="text" th:field="*{name}" placeholder="Name"></td>
-			<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
-		</tr>
-		
-		<tr>	
-		<td>Distance</td>
-			<td><input class="form-control" type="text" th:field="*{distance}" placeholder="Distance"></td>
-			<td th:if="${#fields.hasErrors('distance')}" th:errors="*{distance}">Distance Error</td>			
-		</tr>
-		
-		<tr>
-		<td>Place</td>
-			<td><input class="form-control" type="text" th:field="*{place}" placeholder="Place"></td>
-			<td th:if="${#fields.hasErrors('place')}" th:errors="*{place}">Place Error</td>
-		</tr>
-		
-		<tr>
-		<td>Date</td>
-			<td><input class="form-control" type="text" th:field="*{date}" placeholder="Date" ></td>
-			<td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</td>
-		</tr>
-			
-		<tr>
-		
-		<tr>
-		<td>Time</td>
-			<td><input class="form-control" type="time" th:field="*{time}" placeholder="Time" ></td>
-			<td th:if="${#fields.hasErrors('time')}" th:errors="*{time}">Time Error</td>
-		</tr>
-			
-		<tr>
-			<td><input type="submit" class="btn btn-outline-primary" value="Add Marathon" ></td>
-		</tr>
-		
-		</table>
-		</div>
-		</form>
-	</div>
+		<form action="#" th:action="@{/o/add-result}" th:object="${results}" method="post">
+		<div id="center" class="container">
+
+		<div class="top">
+    		<h1>Add Result</h1>
+    	</div>
+    	<hr>
+    	<!-- 
+ 			<label for="user"><b>User</b></label>
+ 			<select class="form-control" th:field="*{user}">
+	            <option th:each="user : ${T(com.example.demo.model.enumerator.User).values()}"
+	                    th:value="${user}"
+	                    th:selected="${user== T(com.example.demo.model.enumerator.User)}"
+	                    th:text="${user}">
+	        	</option>
+    		</select>
+    		
+    		<label for="gender"><b>Gender</b></label>
+ 			<select class="form-control" th:field="*{gender}">
+	            <option th:each="gender : ${T(com.example.demo.model.enumerator.Gender).values()}"
+	                    th:value="${gender}"
+	                    th:selected="${gender == T(com.example.demo.model.enumerator.Gender)}"
+	                    th:text="${gender}">
+	        	</option>
+    		</select>
+    		 -->
+ 			
+ 			
+    		
+    		<label for="disqualified"><b>Disqualified</b></label>
+ 			<select class="form-control" th:field="*{disqualified}">
+	            <option th:each="disqualified : ${T(com.example.demo.model.enumerator.Disqualified).values()}"
+	                    th:value="${disqualified}"
+	                    th:selected="${disqualified == T(com.example.demo.model.enumerator.Disqualified)}"
+	                    th:text="${disqualified}">
+	        	</option>
+    		</select>
+    		<hr>
+    		<button type="submit" class="registerbtn btn btn-outline-primary">Add result</button>
+    
+  		</div>
+  		</form>
+  		</div>
 	
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
 	<style>
-		span {
+span {
 	font-family: proxima-nova, sans-serif !important;
 	font-style: normal;
 	font-size: 10px;
