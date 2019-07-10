@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Marathon;
 import com.example.demo.model.User;
@@ -65,14 +66,19 @@ public class UserController {
 		return"marathon-view";
 	}
 	
-	@PostMapping(value="/marathon-view/{id}")
-	public String participateInMarathon(@PathVariable(name = "id") long usr_id, Marathon marathon) {
-		System.out.println(usr_id +" " + marathon.getId());
+	@PostMapping(value="/marathon-view/{usr_id}")
+	public String participateInMarathon(@PathVariable(name = "usr_id") long usr_id, @RequestParam long id, Marathon marathon) {
+		System.out.println(usr_id +" " + marathon.getId() + " " + id);
+		
 		userServiceImpl.addParticipantToMarathon(usr_id,marathon);
-		return "redirect:/u/my-marathons";
+		return "redirect:/u/my-marathons/";
 	}
 	
-	
+	@GetMapping(value="/my-marathons")
+	public String viewUserMarathons(@RequestParam long id) {
+		System.out.println(id);
+		return "my-marathons";
+	}
 	
 	
 	
@@ -81,6 +87,8 @@ public class UserController {
 		model.addAttribute("allMarathons", userServiceImpl.findAllMarathons());
 		return "marathon-view";
 	}
+	
+	
 	
 	@GetMapping(value="/add")
 	public String add(Model model) {
