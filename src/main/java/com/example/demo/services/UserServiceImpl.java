@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Marathon;
+import com.example.demo.model.Results;
 import com.example.demo.model.User;
 import com.example.demo.repo.MarathonRepo;
+import com.example.demo.repo.ResultsRepo;
 import com.example.demo.repo.UserRepo;
 
 @Service
@@ -18,6 +20,19 @@ public class UserServiceImpl implements UserService{
 	UserRepo userRepo;
 	@Autowired
 	MarathonRepo marathonRepo;
+	@Autowired
+	ResultsRepo resultsRepo;
+	
+	@Override
+	public Results selectByUserIdRes(long id) {
+		
+		Results resultTemp  = resultsRepo.findByUser(userRepo.findById(id).get());
+		if(resultTemp != null) {
+			return resultTemp;
+		}
+		return null;
+		
+	}
 	
 	public boolean addNewUser(User user) {
 		if(user != null) {

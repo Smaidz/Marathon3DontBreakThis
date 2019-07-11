@@ -12,5 +12,6 @@ import com.example.demo.model.User;
 public interface ResultsRepo extends CrudRepository<Results, Long> {
 	Results findByUserAndMarathonAndDisqualifiedAndTimeResult
 	(User user, Marathon marathon, boolean disqualified, String timeResult);
-
+	
+	Results findByUser(User user);
 }
