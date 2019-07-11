@@ -23,6 +23,25 @@ public class OrganizerController {
 	
 	@Autowired
 	OrganizerServiceImpl organizerServiceImpl;
+	@Autowired
+	UserServiceImpl userServiceImpl;
+	
+
+	@GetMapping(value="/add-result")
+	public String addResult(Results results, Model model) {
+		model.addAttribute("users", organizerServiceImpl.selectAllUsers());
+		model.addAttribute("marathons", userServiceImpl.findAllMarathons());
+		return "add-result";
+	}
+	
+	@PostMapping(value="/add-result")
+	public String resultPost(@Valid Results results, BindingResult bindingResult) {
+		
+		if(bindingResult.hasErrors())
+			return "add-result";
+		organizerServiceImpl.insertNewResult(results);
+		return "/add-result";
+	}
 	
 	@GetMapping(value="/add-marathon")
 	public String addNewCar(Marathon marathon) {

@@ -68,6 +68,12 @@ public class UserController {
 		return"marathon-view";
 	}
 	
+	@GetMapping(value="/history-view/{id}")
+	public String historyView(@PathVariable(name = "id") long id, Model model) {
+		model.addAttribute("allMarathons", userServiceImpl.findAllMarathons());
+		return"marathon-view";
+	}
+	
 	@PostMapping(value="/marathon-view/{id}")
 	public String participateInMarathon() {
 		
