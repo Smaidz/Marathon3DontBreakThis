@@ -8,5 +8,6 @@ public interface OrganizerService{
 	boolean updateMarathonById(Marathon marathon, long id);
 	Marathon selectById(long id);
 	boolean exportDataExcel();
-
+	void sendEmail (String orgemail);
+	void sendWithAttach (String orgemail);
 }

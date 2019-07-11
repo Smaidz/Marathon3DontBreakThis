@@ -37,7 +37,7 @@ public class AdminServiceIMPL implements AdminService{
 	public boolean addNewOrganizer(Organizer organizer) {
 		if (organizer==null)
 			return false;
-		Organizer orgTemp = organizerRepo.findByLoginAndPassword(organizer.getLogin(), organizer.getPassword());
+		Organizer orgTemp = organizerRepo.findByLoginAndPasswordAndOrgemail(organizer.getLogin(), organizer.getPassword(), organizer.getOrgemail());
 		if(orgTemp!=null) {
 			return false;
 		}
@@ -54,6 +54,7 @@ public class AdminServiceIMPL implements AdminService{
 			orgTemp.setName(organizer.getName());
 			orgTemp.setLogin(organizer.getLogin());
 			orgTemp.setPassword(organizer.getPassword());
+			orgTemp.setOrgemail(organizer.getOrgemail());
 			organizerRepo.save(organizer);
 			return true;
 		}

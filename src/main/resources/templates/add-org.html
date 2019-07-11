@@ -9,6 +9,11 @@
 				<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
 			</tr>
 			<tr>
+				<td>Email</td>
+				<td><input type="text" th:field="*{orgemail}" placeholder="Email"></td>
+				<td th:if="${#fields.hasErrors('orgemail')}" th:errors="*{orgemail}">Email Error></td>
+			</tr>
+			<tr>
 				<td>Login</td>
 				<td><input type="text" th:field="*{login}" placeholder="Login"></td>
 				<td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</td>
@@ -18,6 +23,7 @@
 				<td><input type="password" th:field="*{password}" placeholder="Password"></td>
 				<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error></td>
 			</tr>
+			
 			<tr>
 				<td><input type="submit" value="Add organizer"></td>			
 			</tr>
