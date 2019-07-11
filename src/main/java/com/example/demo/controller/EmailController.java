@@ -84,12 +84,13 @@ public class EmailController {
 	        ArrayList<InternetAddress> listOfToAddress = new ArrayList<InternetAddress>();
 	        for (User temp : users) {
 	            if (temp != null) {
+	            organizerServiceImpl.exportDataExcel();
 	            listOfToAddress.add(new InternetAddress(temp.getEmail()));
 	            helper.setTo(temp.getEmail());
-		        helper.setText("This is a test");
-		        helper.setSubject("^ What he said ^");		         
-		        ClassPathResource file = new ClassPathResource("testscreen-large.jpg");
-		        helper.addAttachment("testscreen-large", file);
+		        helper.setText("Here are your test results, have a nice day.");
+		        helper.setSubject("Marathon results");		         
+		        ClassPathResource file = new ClassPathResource("MarathonExcel.xlsx");
+		        helper.addAttachment("MarathonExcel.xlsx", file);
 		        sender.send(message);
 	        }
 	     } 

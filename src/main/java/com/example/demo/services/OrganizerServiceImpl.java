@@ -79,7 +79,7 @@ public class OrganizerServiceImpl implements OrganizerService{
 	@Override
 	public boolean exportDataExcel()
 	{
-		final String FILE_NAME = "MarathonExcel.xlsx";
+		//final String FILE_NAME = "MarathonExcel.xlsx";
 
 	        XSSFWorkbook workbook = new XSSFWorkbook();
 	        XSSFSheet sheet = workbook.createSheet("Marathon info");
@@ -144,9 +144,9 @@ public class OrganizerServiceImpl implements OrganizerService{
 
 	        try {
 	        	//File file = new File("D:/data/file.xlsx");
-	        	//File file = new File("MarathonInfoSystem-master/src/main/resources/file.xlsx");
+	        	File file = new File("/home/levsgordejevs/Documents/WORKSPACE/Marathon3DontBreakThis2/src/main/resources/MarathonExcel.xlsx");
 	            //FileOutputStream outputStream = new FileOutputStream(file);
-	            FileOutputStream outputStream = new FileOutputStream(FILE_NAME);
+	            FileOutputStream outputStream = new FileOutputStream(file);
 	            workbook.write(outputStream);
 	            workbook.close();
 	        } catch (FileNotFoundException e) {
