@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">		    <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		</head>
+<body>
+<h1 class="animated jello infinite slower" style="text-align:center;margin-top:25px;">Add Org</h1>
+	<div id="centerF">
+	
+	<div id="center">
+	<form action="#" th:action="@{/a/add-org}" th:object="${organizer}" method="post">
+		<table>
+			<tr>
+				<td>Name</td>
+				<td><input class="form-control" type="text" th:field="*{name}" placeholder="Name"></td>
+				<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+			</tr>
+			<tr>
+				<td>Login</td>
+				<td><input class="form-control" type="text" th:field="*{login}" placeholder="Login"></td>
+				<td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input class="form-control" type="password" th:field="*{password}" placeholder="Password"></td>
+				<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error></td>
+			</tr>
+			<tr>
+				<td><input class="btn btn-outline-primary" type="submit" value="Add organizer"></td>			
+			</tr>
+		</table>
+		</div>
+	</form>	
+	</div>
+	<style>
+		span {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 10px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+label {
+	padding-top: 9px;
+}
+
+#centerF {
+	margin: auto;
+	width: 50%;
+	padding: 15px;
+}
+
+#center {
+	margin: auto;
+	width: 50%;
+	border: 2px solid black;
+	padding: 10px;
+	text-align: center;
+}
+
+h1 {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 35px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+p, form {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 17px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+td {
+	text-align: center;
+	width: 30%;
+}
+
+#top {
+	text-align: center;
+	margin-top: 25p;
+}width:30%;
+		}
+	</style>	
+</body>

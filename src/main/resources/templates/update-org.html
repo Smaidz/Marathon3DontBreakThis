@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<form action="#" th:action="@{/a/update-org/__${id_org}__}" th:object="${organizer}" method="post">
+		<input type="text" th:field="*{name}" placeholder="Name">
+		<input type="text" th:field="*{login}" placeholder="Login">
+		<input type="text" th:field="*{password}" placeholder="Password">
+		<input type="submit" value="Update organizer"> 
+	</form>
+
+
+</body>
+</html>
