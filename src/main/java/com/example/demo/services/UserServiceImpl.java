@@ -51,9 +51,17 @@ public class UserServiceImpl implements UserService{
 	public boolean addParticipantToMarathon(long id, Marathon marathon) {
 		User uTemp = userRepo.findById(id).get();
 		Marathon mTemp = marathonRepo.findById(marathon.getId()).get();
+		System.out.println(uTemp.toString() +""+mTemp.toString());
 		if(uTemp != null && mTemp != null) {
 			uTemp.addMarathonToCollection(marathon);
-			//mTemp.addMarathonParticipant(user);
+			for (Marathon mTempFor: uTemp.getMarathons()) {
+				System.out.println("AAAAAAAAAAAA"+mTempFor);
+			}
+			
+			
+			userRepo.save(uTemp);
+			mTemp.addMarathonParticipant(uTemp);
+			marathonRepo.save(mTemp);
 			return true;
 		} else
 			return false;

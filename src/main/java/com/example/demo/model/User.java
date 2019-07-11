@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -133,7 +134,12 @@ public class User {
 	}
 	
 	public void addMarathonToCollection(Marathon marathon) {
-		marathons.add(marathon);
+		if(marathons == null) {
+			marathons = new ArrayList<Marathon>();
+			marathons.add(marathon);
+		} else {
+			marathons.add(marathon);
+		}
 	}
 	
 	

@@ -94,20 +94,28 @@ public class UserController {
 	public String add(Model model) {
 
 		Marathon m1 = new Marathon("Ventspils Skrien", 40, "Ventspils", "01.01.2019", 1200);
-		Marathon m2 = new Marathon("Ventspils Skrien", 40, "Ventspils", "01.01.2019", 1200);
-		Marathon m3 = new Marathon("Ventspils Skrien", 40, "Ventspils", "01.01.2019", 1200);
+		Marathon m2 = new Marathon("Rigas pusmaratons", 20, "Riga", "01.01.2019", 1200);
+		Marathon m3 = new Marathon("Lielais skrejiens", 40, "Ventspils", "01.01.2019", 1200);
 		
 		User u1 = new User("Janis", "Berzins", "email@domain.com", "password", "14.04.1991", Gender.Male);
 		User u2 = new User("Liene", "Liepa", "email@pasts.lv", "password", "21.12.1993", Gender.Female);
-;
+		
+
 		userRepo.save(u1);
 		userRepo.save(u2);
 
 		marathonRepo.save(m1);
 		marathonRepo.save(m2);
 		marathonRepo.save(m3);
+		
+		long id = u2.getID_usr(); 
+		System.out.println(id + "" + m3.toString());
+		userServiceImpl.addParticipantToMarathon(id, m3);
+		
 		return "redirect:/u/marathon-view";
 	}
+	
+	
 }
 
 

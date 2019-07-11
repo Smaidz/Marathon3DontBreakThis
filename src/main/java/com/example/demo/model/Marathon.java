@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -63,8 +64,8 @@ public class Marathon {
 	
 	@ManyToMany
 	@JoinTable(name="Users_Marathons", 
-		joinColumns = @JoinColumn(name ="ID_Usr"), 
-		inverseJoinColumns = @JoinColumn(name="ID_Mar"))
+		joinColumns = @JoinColumn(name ="ID_Mar"), 
+		inverseJoinColumns = @JoinColumn(name="ID_Usr"))
 	Collection<User> marathonParticipants;
 	
 	@ManyToOne
@@ -152,7 +153,13 @@ public class Marathon {
 	}
 	
 	public void addMarathonParticipant(User user) {
-		marathonParticipants.add(user);
+		if(marathonParticipants == null) {
+			marathonParticipants = new ArrayList<User>();
+			marathonParticipants.add(user);
+		} else {
+			marathonParticipants.add(user);
+		}
+
 	}
 
 
