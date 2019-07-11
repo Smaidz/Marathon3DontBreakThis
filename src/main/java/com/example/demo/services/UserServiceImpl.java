@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ import com.example.demo.repo.UserRepo;
 
 @Service
 public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	MarathonServiceImpl marathonServiceImpl;  
 	
 	@Autowired
 	UserRepo userRepo;
@@ -30,13 +34,6 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 	
-	public ArrayList<Marathon> findAllMarathons() {
-		ArrayList<Marathon> tempList = new ArrayList<Marathon>();
-		for(Marathon m:marathonRepo.findAll()) {
-			tempList.add(m);
-		}
-		return tempList;
-}
 	@Override
 	public User findByEmailAndPassword(User user) {
 		User uTemp = userRepo.findByEmailAndPassword(user.getEmail(), user.getPassword());
@@ -65,11 +62,32 @@ public class UserServiceImpl implements UserService{
 			return true;
 		} else
 			return false;
-		
-		
-		
-		
 	}
+	
+	@Override
+	public ArrayList<Marathon> findMyMarathons(long usr_id) {
+		ArrayList<Marathon> myMarathonsList = marathonServiceImpl.findAllMarathons();
+		User uTemp = userRepo.findById(usr_id).get(); 
+		ArrayList<Marathon> myMarathonsReturnList = new ArrayList<Marathon>();
+		if (uTemp != null && myMarathonsList != null) {
+			for (Marathon marathon : myMarathonsList) {
+				if(marathon.getMarathonParticipants().contains(uTemp)) {
+					System.out.println("YO IS YOU HERE");
+					myMarathonsReturnList.add(marathon);
+				}
+			}
+			
+			
+		}
+		return myMarathonsReturnList;
+}
+
+	
+
+	
+
+	
+	
 
 	
 

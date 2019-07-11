@@ -3,4 +3,22 @@
 <h1>is(maybe)OK<br>
 <br>
 <br>(probably not tho)</h1>
+
+<table id="center">
+		   <th:block th:each="marathon : ${myMarathons}">
+		   
+		      <tr id="center" >
+		      
+		  		 <td th:text="${marathon.getId()} + . + ' (id)'"></td>
+		         <td th:text="${marathon.getName()} + ' (Name)'"></td>
+		         <td th:text="${marathon.getDistance()}+ ' ' +km + ' (distance)'"></td>
+		         <td th:text="${marathon.getPlace()} + ' (place)'"></td>
+		         <td th:text="${marathon.getDate()} + ' (date)'"></td>
+		         <td th:text="${marathon.getTime()} + ' (time)'"></td>
+		        
+		      </tr>
+		      
+		   </th:block>
+		</table>
 </body>
+</html>

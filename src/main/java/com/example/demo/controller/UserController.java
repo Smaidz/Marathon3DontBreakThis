@@ -17,6 +17,7 @@ import com.example.demo.model.User;
 import com.example.demo.model.enumerator.Gender;
 import com.example.demo.repo.MarathonRepo;
 import com.example.demo.repo.UserRepo;
+import com.example.demo.services.MarathonServiceImpl;
 import com.example.demo.services.UserServiceImpl;
 
 @Controller
@@ -25,6 +26,8 @@ public class UserController {
 	
 	@Autowired
 	UserServiceImpl userServiceImpl;
+	@Autowired
+	MarathonServiceImpl marathonServiceImpl;  
 	@Autowired
 	UserRepo userRepo;
 	@Autowired
@@ -62,7 +65,7 @@ public class UserController {
 	
 	@GetMapping(value="/marathon-view/{usr_id}")
 	public String marathonViewAuthorised(@PathVariable(name = "usr_id") long usr_id, Model model, Marathon marathon) {
-		model.addAttribute("allMarathons", userServiceImpl.findAllMarathons());
+		model.addAttribute("allMarathons", marathonServiceImpl.findAllMarathons());
 		return"marathon-view";
 	}
 	
@@ -74,9 +77,10 @@ public class UserController {
 		return "redirect:/u/my-marathons/{usr_id}";
 	}
 	
-	@GetMapping(value="/my-marathons")
-	public String viewUserMarathons(@PathVariable(name = "usr_id") long usr_id) {
-		System.out.println(usr_id);
+	@GetMapping(value="/my-marathons/{usr_id}")
+	public String viewUserMarathons(@PathVariable(name = "usr_id") long usr_id, Model model) {
+		System.out.println("MY MARATHONS USR ID" +usr_id);
+		model.addAttribute("myMarathons", userServiceImpl.findMyMarathons(usr_id));
 		return "my-marathons";
 	}
 	
@@ -84,7 +88,7 @@ public class UserController {
 	
 	@GetMapping(value="/marathon-view")
 	public String marathonView(User user, Model model) {
-		model.addAttribute("allMarathons", userServiceImpl.findAllMarathons());
+		model.addAttribute("allMarathons", marathonServiceImpl.findAllMarathons());
 		return "marathon-view";
 	}
 	
@@ -108,9 +112,9 @@ public class UserController {
 		marathonRepo.save(m2);
 		marathonRepo.save(m3);
 		
-		//long id = u2.getID_usr(); 
-		//System.out.println(id + "" + m3.toString());
-		//userServiceImpl.addParticipantToMarathon(id, m3.getId());
+		long id = u2.getID_usr(); 
+		System.out.println(id + "" + m3.toString());
+		userServiceImpl.addParticipantToMarathon(id, m3.getId());
 		
 		return "redirect:/u/marathon-view";
 	}
