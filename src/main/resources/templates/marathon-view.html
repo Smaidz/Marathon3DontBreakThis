@@ -22,10 +22,14 @@
 		         <td th:text="${marathon.getDate()} + ' (date)'"></td>
 		         <td th:text="${marathon.getTime()} + ' (time)'"></td>
 		         <td>
-		          <form action="#" th:action="@{/u/marathon-view/__${id}__}" th:object="${marathon}" method="post">
-				<a th:href="@{/u/marathon-view(id=${marathon.getId()}, action='user.participateInMarathon()')}">Edit Exam</a>
-		          </form>
+		          
+					<form th:action="@{/u/marathon-view/__${usr_id}__/__${marathon.getId()}__}" th:object="${user}" method="post">
+
+				<input type="submit" value="RUN">
+
+		           </form>
 		         </td>
+		        
 		      </tr>
 		      
 		   </th:block>

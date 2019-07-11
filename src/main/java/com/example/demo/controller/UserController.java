@@ -60,23 +60,23 @@ public class UserController {
 		return "redirect:/u/marathon-view/"+id;
 	}
 	
-	@GetMapping(value="/marathon-view/{id}")
-	public String marathonViewAuthorised(@PathVariable(name = "id") long id, Model model, Marathon marathon) {
+	@GetMapping(value="/marathon-view/{usr_id}")
+	public String marathonViewAuthorised(@PathVariable(name = "usr_id") long usr_id, Model model, Marathon marathon) {
 		model.addAttribute("allMarathons", userServiceImpl.findAllMarathons());
 		return"marathon-view";
 	}
 	
-	@PostMapping(value="/marathon-view/{usr_id}")
-	public String participateInMarathon(@PathVariable(name = "usr_id") long usr_id, @RequestParam long id, Marathon marathon) {
-		System.out.println(usr_id +" " + marathon.getId() + " " + id);
+	@PostMapping(value="/marathon-view/{usr_id}/{mar_id}")
+	public String participateInMarathon(@PathVariable(name = "usr_id") long usr_id, @PathVariable(name = "mar_id") long mar_id) {
+		System.out.println("CONTR-UUUUUUUUUUUUUUU"+usr_id +" MMMMMMMMMMMMMMMMMMMM" + mar_id);
 		
-		userServiceImpl.addParticipantToMarathon(usr_id,marathon);
-		return "redirect:/u/my-marathons/";
+		userServiceImpl.addParticipantToMarathon(usr_id, mar_id);
+		return "redirect:/u/my-marathons/{usr_id}";
 	}
 	
 	@GetMapping(value="/my-marathons")
-	public String viewUserMarathons(@RequestParam long id) {
-		System.out.println(id);
+	public String viewUserMarathons(@PathVariable(name = "usr_id") long usr_id) {
+		System.out.println(usr_id);
 		return "my-marathons";
 	}
 	
@@ -108,9 +108,9 @@ public class UserController {
 		marathonRepo.save(m2);
 		marathonRepo.save(m3);
 		
-		long id = u2.getID_usr(); 
-		System.out.println(id + "" + m3.toString());
-		userServiceImpl.addParticipantToMarathon(id, m3);
+		//long id = u2.getID_usr(); 
+		//System.out.println(id + "" + m3.toString());
+		//userServiceImpl.addParticipantToMarathon(id, m3.getId());
 		
 		return "redirect:/u/marathon-view";
 	}
