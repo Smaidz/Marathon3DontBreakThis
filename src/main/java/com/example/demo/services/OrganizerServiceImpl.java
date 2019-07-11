@@ -38,11 +38,6 @@ public class OrganizerServiceImpl implements OrganizerService{
 
 	@Autowired
 	MarathonRepo marathonRepo;
-    @Autowired
-    private JavaMailSender sender;
-    @Autowired
-    OrganizerRepo organizerRepo;
-    
 	@Override
 	public boolean insertNewMarathon(Marathon marathon) {
 		if(marathon == null) {
@@ -164,29 +159,7 @@ public class OrganizerServiceImpl implements OrganizerService{
 		
 		return false;
 	}
-	//MimeMessage message = sender.createMimeMessage();
-    /*private void sendEmail(Organizer organizer) throws MessagingException, IOException{
-    	MimeMessage message = sender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        
-        ArrayList<String> listOfEmails = organizerRepo.findByOrgemail(organizer.getOrgemail());
-        ArrayList<InternetAddress> listOfToAddress = new ArrayList<InternetAddress>();
-        
-        for (String temp : listOfEmails) {
-            if (temp != null) {
-                listOfToAddress.add(new InternetAddress(temp));
-                helper.setTo(temp);
-                helper.setText("How are you?");
-                helper.setSubject("Hi");
-                sender.send(message);
-            }
-        }
-         
-        
-
-    }
-	
-*/
+	@Override
 	public void sendEmail(String orgemail) {
 		// TODO Auto-generated method stub
 		
@@ -196,5 +169,6 @@ public class OrganizerServiceImpl implements OrganizerService{
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 }
