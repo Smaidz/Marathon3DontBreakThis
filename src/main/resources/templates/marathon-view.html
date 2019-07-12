@@ -9,13 +9,14 @@
 		</head>
 	
 	<body>
+	<h1 align="center">Available marathons</h1>
 		
 		<table id="center">
 		   <th:block th:each="marathon : ${allMarathons}">
 		   
 		      <tr id="center" >
 		      
-		  		 <td th:text="${marathon.getId()} + . + ' (id)'"></td>
+		  		 <td th:text="${marathon.getID_mar()} + . + ' (id)'"></td>
 		         <td th:text="${marathon.getName()} + ' (Name)'"></td>
 		         <td th:text="${marathon.getDistance()}+ ' ' +km + ' (distance)'"></td>
 		         <td th:text="${marathon.getPlace()} + ' (place)'"></td>
@@ -23,7 +24,7 @@
 		         <td th:text="${marathon.getTime()} + ' (time)'"></td>
 		         <td>
 		          
-					<form th:action="@{/u/marathon-view/__${usr_id}__/__${marathon.getId()}__}" th:object="${user}" method="post">
+					<form th:action="@{/u/marathon-view/__${usr_id}__/__${marathon.getID_mar()}__}" th:object="${user}" method="post">
 
 				<input type="submit" value="RUN">
 

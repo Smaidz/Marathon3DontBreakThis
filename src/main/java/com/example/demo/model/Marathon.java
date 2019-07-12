@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -57,10 +58,8 @@ public class Marathon {
 	private String date;
 	
 	@NotNull
-	@Min(100)
-	@Max(2400)
 	@Column(name="Time")
-	private int time;
+	private String time;
 	
 	@ManyToMany
 	@JoinTable(name="Users_Marathons", 
@@ -69,15 +68,16 @@ public class Marathon {
 	Collection<User> marathonParticipants;
 	
 	@ManyToOne
-	@JoinColumn(name="Id_org")
+	@JoinColumn(name="ID_Org")
 	private Organizer organizer;
 	
-	public Marathon() {
-		
-	}
+	@OneToMany(mappedBy="marathon")
+	private Collection<Results> results;
+	
+	public Marathon() {}
 
 	
-	public Marathon(String n, int dis, String p, String dat, int t) {
+	public Marathon(String n, int dis, String p, String dat, String t) {
 		name = n;
 		distance= dis;
 		place = p;
@@ -87,7 +87,7 @@ public class Marathon {
 	
 	
 
-	public long getId() {
+	public long getID_mar() {
 		return ID_mar;
 	}
 	/*
@@ -127,11 +127,11 @@ public class Marathon {
 		this.date = date;
 	}
 
-	public int getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(int time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 
@@ -163,6 +163,9 @@ public class Marathon {
 	}
 
 
+	
+
+
 	public Organizer getOrganizer() {
 		return organizer;
 	}
@@ -171,6 +174,22 @@ public class Marathon {
 	public void setOrganizer(Organizer organizer) {
 		this.organizer = organizer;
 	}
+
+
+	public Collection<Results> getResults() {
+		return results;
+	}
+
+
+	public void setResults(Collection<Results> results) {
+		this.results = results;
+	}
+
+
+
+
+
+	
 	
 	
 	

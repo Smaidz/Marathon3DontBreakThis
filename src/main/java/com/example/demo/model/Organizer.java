@@ -46,7 +46,11 @@ public class Organizer {
 	
 	@OneToMany(mappedBy="organizer")
 	private Collection<Marathon> marathons;
-	//TODO Get Marathon class from someone
+	
+	@Column(name="Email")
+	private String orgemail;
+	
+	private boolean firstLogin = true;
 	
 	
 	public Organizer()
@@ -55,12 +59,22 @@ public class Organizer {
 		
 	}
 	
+	public Organizer(String name, String login, String password, String orgemail)
+	{
+		//engine = e;
+		//speed = s;
+		//year = y;
+		//color = c;
+		//setId_org(id_org);
+		setName(name);
+		setLogin(login);
+		setPassword(password);
+		setOrgemail(orgemail);
+		//setId();
+	}
 
 	public long getId_org() {
 		return id_org;
-	}
-	public void setId_org(long id_org) {
-		this.id_org = id_org;
 	}
 	public String getName() {
 		return name;
@@ -80,6 +94,26 @@ public class Organizer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getOrgemail() {
+		return orgemail;
+	}
+	public void setOrgemail(String orgemail) {
+		this.orgemail = orgemail;
+	}
 
-	
+	public Collection<Marathon> getMarathons() {
+		return marathons;
+	}
+
+	public void setMarathons(Collection<Marathon> marathons) {
+		this.marathons = marathons;
+	}
+
+	public boolean isFirstLogin() {
+		return firstLogin;
+	}
+
+	public void setFirstLogin(boolean firstLogin) {
+		this.firstLogin = firstLogin;
+	}	
 }

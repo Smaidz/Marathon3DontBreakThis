@@ -1,0 +1,147 @@
+<html xmlns:th="hhtp://thymeleaf.org">
+	<head>
+  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">		    <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	</head>
+	
+	<body>
+	
+	<h1 class="animated jello infinite slower" style="text-align:center;margin-top:25px;">Update User</h1>
+	<div id="centerF">
+	
+	
+		<form action="#" th:action="@{/u/update-user/__${id}__}" th:object="${user}" method="post"> 
+		<div id="center">
+		<table>
+		
+		<tr>
+		<td>Name</td>
+			<td><input class="form-control" type="text" th:field="*{name}" placeholder="Name"></td>
+			<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+		</tr>
+		
+		<tr>	
+		<td>Surname</td>
+			<td><input class="form-control" type="text" th:field="*{surname}" placeholder="Surname"></td>
+			<td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</td>			
+		</tr>
+		
+		<tr>
+		<td>Email</td>
+			<td><input class="form-control" type="email" th:field="*{email}" placeholder="email@domain.com"></td>
+			<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+		</tr>
+		
+		<tr>
+		<td>Password</td>
+			<td><input class="form-control" type="password" th:field="*{password}" placeholder="Password" id="password"></td>
+			<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+		</tr>
+		
+		<tr>
+		<td>Repeat Password</td>
+			<td><input class="form-control" type="password" placeholder="Repeat password" id="password_repeat"></td>
+		</tr>
+		
+		<tr>
+		<td>Date of birth</td>
+			<td><input class="form-control" type="date" th:field="*{birthDate}" placeholder="Date of birth" ></td>
+			<td th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Birthdate Error</td>
+		</tr>
+		
+		<tr>
+		<td>Mailing list sub</td>
+			<td><input class="form-control" type="checkbox" th:field="*{isSubscribed}" ></td>
+			<td th:if="${#fields.hasErrors('isSubscribed')}" th:errors="*{isSubscribed}">Subscription Error</td>
+		</tr>
+		
+			
+		<tr>
+			<td><input type="submit" class="btn btn-outline-primary" value="Add Marathon" ></td>
+		</tr>
+		
+		</table>
+		</div>
+		</form>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>	
+	<style>
+		#centerF{
+			margin: auto;
+			width: 50%;
+			padding: 15px;
+		}
+		
+		#center{
+			margin: auto;
+			width: 50%;
+			border: 2px solid black;
+			padding: 10px;
+			text-align: center;
+		}
+		h1{
+   
+		    font-family:proxima-nova, sans-serif !important;
+		    font-style: normal;
+		    font-size: 35px;
+		    font-weight:400;
+		    letter-spacing: 3px;
+		    color: #231f20;
+		    text-transform: uppercase;
+		    line-height: 1.5em;
+		    
+		}
+		form{
+   
+		    font-family:proxima-nova, sans-serif !important;
+		    font-style: normal;
+		    font-size: 17px;
+		    font-weight:400;
+		    letter-spacing: 3px;
+		    color: #231f20;
+		    text-transform: uppercase;
+		    line-height: 1.5em;
+		    
+		}
+		td{
+			text-align:center;
+			width:30%;
+		}
+	</style>
+	</body>
+	<script type="text/javascript">
+	var password = document.getElementById("password"), confirm_password = document.getElementById("password_repeat");
+	
+	
+	function passwordLength(){
+		var passLength = password.value.length;
+		if (passLength > 7){
+			password.setCustomValidity('');
+		} else {
+			password.setCustomValidity("Password too short");
+		}
+	}
+	
+	function validatePassword() {
+		
+		if (password.value != confirm_password.value) {
+			confirm_password.setCustomValidity("Passwords Don't Match");
+		} else {
+			confirm_password.setCustomValidity('');
+		}
+	}
+	password.onkeyup = passwordLength;
+	password.onchange = validatePassword;
+	confirm_password.onkeyup = validatePassword;
+	
+</script>
+
+</html>

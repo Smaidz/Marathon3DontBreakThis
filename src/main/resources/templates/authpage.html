@@ -14,11 +14,15 @@
 
 <body>
  <div id="centerF">
+
 	<form action="#" th:action="@{/u/authpage}" th:object="${user}" method="post">
 	<div id="center" class="container">
 	 <div class="top">
 		<h1>Log in</h1>
 		</div>
+		 <div id="centerF" class="container" style="background-color:#f1f1f1">
+		    <span class="password">Are you an organizer? Login <a th:href="@{/o/org-auth}">here</a></span>
+		  </div>
 		  <div id="centerF" class="container">
 		 
 		    <label for="email"><b>Email</b></label>
@@ -36,9 +40,7 @@
 		 
 		</div>
 		 
-		  <div id="centerF" class="container" style="background-color:#f1f1f1">
-		    <span class="password">Forgot <a href="#">password?</a></span>
-		  </div>
+		  
 	 
 	 
 	 </div>

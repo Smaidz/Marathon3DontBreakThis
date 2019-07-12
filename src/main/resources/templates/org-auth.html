@@ -1,0 +1,108 @@
+<html xmlns:th="www.thymeleaf.org">
+<link href="/demo/src/main/resources/templates/css/authpage.css" rel="stylesheet" />
+<head>
+	 <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    
+		<link href="style.css" type="text/css" rel="stylesheet">
+		
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+</head>
+
+<body>
+ <div id="centerF">
+	<form action="#" th:action="@{/o/org-auth}" th:object="${organizer}" method="post">
+	<div id="center" class="container">
+	 <div class="top">
+		<h1>Log in</h1>
+		</div>
+		  <div id="centerF" class="container">
+		 
+		    <label for="email"><b>Organizer login</b></label>
+		    <input class="form-control" type="text" placeholder="Login" name="login" required th:field="*{login}"/>
+		 
+		    <label for="password"><b>Password</b></label>
+		    <input class="form-control" type="password" placeholder="Password" name="password" required th:field="*{password}"/>
+		  </div>
+		 
+		<div  id="centerF" class="container">
+		<button class="btn btn-outline-primary" type="submit">Login</button>
+		    <label>
+		      <input id="centers" type="checkbox" checked="checked" name="remember"> Remember me
+		    </label>
+		 
+		</div>
+		 
+		  
+	 
+	 
+	 </div>
+	</form>
+</div>
+<style>
+span {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 10px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+label {
+	padding-top: 9px;
+}
+
+#centerF {
+	margin: auto;
+	width: 50%;
+	padding: 15px;
+}
+
+#center {
+	margin: auto;
+	width: 50%;
+	border: 2px solid black;
+	padding: 10px;
+	text-align: center;
+}
+
+h1 {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 35px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+p, form {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 17px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+td {
+	text-align: center;
+	width: 30%;
+}
+
+#top {
+	text-align: center;
+	margin-top: 25p;
+}
+</style>
+</body>
+</html>

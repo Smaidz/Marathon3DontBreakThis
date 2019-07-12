@@ -60,10 +60,7 @@ public class AdminController {
 	public String deleteorgGet(@PathVariable(name="id_org") long id_org) {
 		adminServiceImpl.deleteOrganizerById_org(id_org);
 		return "redirect:/a/view-org";
-	
 	}
-	
-	
 	@GetMapping(value="/add-marathon")
 	public String addNewCar(Marathon marathon) {
 		return "add-marathon";

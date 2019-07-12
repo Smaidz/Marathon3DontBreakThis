@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Marathon;
 
 import com.example.demo.model.Organizer;
+import com.example.demo.model.Results;
+import com.example.demo.model.User;
 import com.example.demo.repo.MarathonRepo;
 import com.example.demo.repo.OrganizerRepo;
+import com.example.demo.repo.ResultsRepo;
+import com.example.demo.repo.UserRepo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +36,23 @@ public class OrganizerServiceImpl implements OrganizerService{
 
 	@Autowired
 	MarathonRepo marathonRepo;
+	@Autowired
+	ResultsRepo resultsRepo;
+	@Autowired
+	UserRepo userRepo;
+	@Autowired
+	OrganizerRepo organizerRepo;
+	
+	@Override
+	public ArrayList<User> selectAllUsers() {
+		ArrayList<User> tempList = new ArrayList<User>();
+		for (User o:userRepo.findAll())
+		{
+			tempList.add(o);
+		}
+		return tempList;
+	}
+	
 	@Override
 	public boolean insertNewMarathon(Marathon marathon) {
 		if(marathon == null) {
@@ -45,6 +66,38 @@ public class OrganizerServiceImpl implements OrganizerService{
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean insertNewMarathon(long id, Marathon marathon) {
+		if(marathon == null) {
+			return false;
+		}
+		Marathon marathonTemp = marathonRepo.findByNameAndDistanceAndPlaceAndDateAndTime(marathon.getName(), marathon.getDistance(), marathon.getPlace(), marathon.getDate(), marathon.getTime());
+		if(marathonTemp != null) {
+			return false;
+		} else {
+			Organizer organizer = organizerRepo.findById(id).get();
+			marathon.setOrganizer(organizer);
+			marathonRepo.save(marathon);
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean insertNewResult(Results results) {
+		if(results == null) {
+			return false;
+		}
+		Results resultTemp = resultsRepo.findByUserAndMarathonAndDisqualifiedAndTimeResult
+				(results.getUser(), results.getMarathon(), results.isDisqualified(), results.getTimeResult());
+		if(resultTemp != null) {
+			return false;
+		}else {
+			resultsRepo.save(results);
+			return false;
+		}
+	}
+	
 	@Override
 	public Marathon selectById(long id) {
 		
@@ -73,7 +126,7 @@ public class OrganizerServiceImpl implements OrganizerService{
 	@Override
 	public boolean exportDataExcel()
 	{
-		final String FILE_NAME = "MarathonExcel.xlsx";
+		//final String FILE_NAME = "MarathonExcel.xlsx";
 
 	        XSSFWorkbook workbook = new XSSFWorkbook();
 	        XSSFSheet sheet = workbook.createSheet("Marathon info");
@@ -109,7 +162,7 @@ public class OrganizerServiceImpl implements OrganizerService{
 	            colNum = 0;
 	            
 	            Cell cell0 = row.createCell(colNum++);
-                cell0.setCellValue(maratoni1.getId());
+                cell0.setCellValue(maratoni1.getID_mar());
 	            Cell cell = row.createCell(colNum++);
 	            cell.setCellValue(maratoni1.getName());
 	            Cell cell2 = row.createCell(colNum++);
@@ -138,9 +191,9 @@ public class OrganizerServiceImpl implements OrganizerService{
 
 	        try {
 	        	//File file = new File("D:/data/file.xlsx");
-	        	//File file = new File("MarathonInfoSystem-master/src/main/resources/file.xlsx");
-	            //FileOutputStream outputStream = new FileOutputStream(file);
-	            FileOutputStream outputStream = new FileOutputStream(FILE_NAME);
+	        	File file = new File("/home/s8_spila_e/Desktop/WORKSPACE/Marathon3DontBreakThis-Eduards/src/main/resources/export/MarathonExport.xlsx");
+	            FileOutputStream outputStream = new FileOutputStream(file);
+	            //FileOutputStream outputStream = new FileOutputStream(FILE_NAME);
 	            workbook.write(outputStream);
 	            workbook.close();
 	        } catch (FileNotFoundException e) {
@@ -153,5 +206,20 @@ public class OrganizerServiceImpl implements OrganizerService{
 		
 		return false;
 	}
+	
+	@Override
+	public void sendEmail(String orgemail) {}
+	@Override
+	public void sendWithAttach(String orgemail) {}
+
+	@Override
+	public Organizer findByLoginAndPassword(Organizer organizer) {
+		Organizer oTemp = organizerRepo.findByLoginAndPassword(organizer.getLogin(), organizer.getPassword());
+		if (oTemp != null)
+			return oTemp;
+		else 
+			return null;
+	}
+
 	
 }

@@ -10,7 +10,7 @@ import com.example.demo.model.Marathon;
 public interface MarathonRepo extends CrudRepository<Marathon, Long>{
 	
 	//Marathon findByID(long id);
-	Marathon findByNameAndDistanceAndPlaceAndDateAndTime(String name, double distance, String place, String date, int time);
+	Marathon findByNameAndDistanceAndPlaceAndDateAndTime(String name, double distance, String place, String date, String time);
 	
 	
 

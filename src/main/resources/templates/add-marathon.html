@@ -16,7 +16,7 @@
 	<div id="centerF">
 	
 	<div id="center">
-		<form action="#" th:action="@{/o/add-marathon}" th:object="${marathon}" method="post"> 
+		<form action="#" th:action="@{/o/add-marathon/__${id}__}" th:object="${marathon}" method="post"> 
 		
 		<table>
 		
@@ -40,7 +40,7 @@
 		
 		<tr>
 		<td>Date</td>
-			<td><input class="form-control" type="text" th:field="*{date}" placeholder="Date" ></td>
+			<td><input class="form-control" type="date" th:field="*{date}" placeholder="Date" ></td>
 			<td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</td>
 		</tr>
 			
@@ -48,7 +48,7 @@
 		
 		<tr>
 		<td>Time</td>
-			<td><input class="form-control" type="text" th:field="*{time}" placeholder="Time" ></td>
+			<td><input class="form-control" step="1" type="time" th:field="*{time}" placeholder="Time" ></td>
 			<td th:if="${#fields.hasErrors('time')}" th:errors="*{time}">Time Error</td>
 		</tr>
 			
@@ -57,8 +57,9 @@
 		</tr>
 		
 		</table>
-		</div>
 		</form>
+		</div>
+		
 	</div>
 	
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
