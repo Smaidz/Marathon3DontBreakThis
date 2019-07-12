@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -63,13 +65,16 @@ public class Marathon {
 	
 	@ManyToMany
 	@JoinTable(name="Users_Marathons", 
-		joinColumns = @JoinColumn(name ="ID_Usr"), 
-		inverseJoinColumns = @JoinColumn(name="ID_Mar"))
+		joinColumns = @JoinColumn(name ="ID_Mar"), 
+		inverseJoinColumns = @JoinColumn(name="ID_Usr"))
 	Collection<User> marathonParticipants;
 	
 	@ManyToOne
 	@JoinColumn(name="Id_org")
 	private Organizer organizer;
+	
+	@OneToMany(mappedBy="marathon")
+	private Collection<Results> results;
 	
 	public Marathon() {
 		
@@ -139,6 +144,36 @@ public class Marathon {
 	public String toString() {
 		return "Marathon [id=" + ID_mar + ", name=" + name + ", distance=" + distance + ", place=" + place + ", date="
 				+ date + ", time=" + time + "]";
+	}
+
+
+	public Collection<User> getMarathonParticipants() {
+		return marathonParticipants;
+	}
+
+
+	public void setMarathonParticipants(Collection<User> marathonParticipants) {
+		this.marathonParticipants = marathonParticipants;
+	}
+	
+	public void addMarathonParticipant(User user) {
+		if(marathonParticipants == null) {
+			marathonParticipants = new ArrayList<User>();
+			marathonParticipants.add(user);
+		} else {
+			marathonParticipants.add(user);
+		}
+
+	}
+
+
+	public Organizer getOrganizer() {
+		return organizer;
+	}
+
+
+	public void setOrganizer(Organizer organizer) {
+		this.organizer = organizer;
 	}
 	
 	

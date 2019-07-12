@@ -121,13 +121,25 @@ td {
 	<script type="text/javascript">
 	var password = document.getElementById("password"), confirm_password = document.getElementById("password_repeat");
 	
+	
+	function passwordLength(){
+		var passLength = password.value.length;
+		if (passLength > 7){
+			password.setCustomValidity('');
+		} else {
+			password.setCustomValidity("Password too short");
+		}
+	}
+	
 	function validatePassword() {
+		
 		if (password.value != confirm_password.value) {
 			confirm_password.setCustomValidity("Passwords Don't Match");
 		} else {
 			confirm_password.setCustomValidity('');
 		}
 	}
+	password.onkeyup = passwordLength;
 	password.onchange = validatePassword;
 	confirm_password.onkeyup = validatePassword;
 	

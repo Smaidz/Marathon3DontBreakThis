@@ -48,6 +48,9 @@ public class Organizer {
 	private Collection<Marathon> marathons;
 	//TODO Get Marathon class from someone
 	
+	@Column(name="Email")
+	private String orgemail;
+	
 	
 	public Organizer()
 	
@@ -55,6 +58,19 @@ public class Organizer {
 		
 	}
 	
+	public Organizer(long id_org, String name, String login, String password, String orgemail)
+	{
+		//engine = e;
+		//speed = s;
+		//year = y;
+		//color = c;
+		setId_org(id_org);
+		setName(name);
+		setLogin(login);
+		setPassword(password);
+		setOrgemail(orgemail);
+		//setId();
+	}
 
 	public long getId_org() {
 		return id_org;
@@ -80,6 +96,11 @@ public class Organizer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	public String getOrgemail() {
+		return orgemail;
+	}
+	public void setOrgemail(String orgemail) {
+		this.orgemail = orgemail;
+	}
 	
 }

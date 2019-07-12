@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -65,6 +67,9 @@ public class User {
 	@ManyToMany(mappedBy="marathonParticipants")
 	Collection<Marathon> marathons;
 	
+	@OneToMany(mappedBy="user")
+	private Collection<Results> results;
+	
 	public User() {}
 	
 	
@@ -120,6 +125,25 @@ public class User {
 	public String toString() {
 		return "User [ID_usr=" + ID_usr + ", name=" + name + ", surname=" + surname + ", email=" + email + ", password="
 				+ password + ", birthDate=" + birthDate + ", gender=" + gender + "]";
+	}
+
+
+	public Collection<Marathon> getMarathons() {
+		return marathons;
+	}
+
+
+	public void setMarathons(Collection<Marathon> marathons) {
+		this.marathons = marathons;
+	}
+	
+	public void addMarathonToCollection(Marathon marathon) {
+		if(marathons == null) {
+			marathons = new ArrayList<Marathon>();
+			marathons.add(marathon);
+		} else {
+			marathons.add(marathon);
+		}
 	}
 	
 	
