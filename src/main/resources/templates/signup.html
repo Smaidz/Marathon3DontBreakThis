@@ -1,0 +1,149 @@
+
+<html xmlns:th="www.thymeleaf.org">
+	<head>
+  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">		    <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    
+		<link th:href="@{/css/stylesheet.css}" rel="stylesheet" />		
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	</head>
+	<body>
+	<div id="centerF">
+		<form action="#" th:action="@{/u/signup}" th:object="${user}" method="post">
+		<div id="center" class="container">
+
+		<div class="top">
+    		<h1>Register</h1>
+    		<p>Please fill in this form to create an account.</p>
+    	</div>
+    	<hr>
+    
+    		<label for="name"><b>Name</b></label>
+    		<input class="form-control" type="text" placeholder="Name" name="name" required th:field="*{name}">
+    		
+    		<label for="surname"><b>Surname</b></label>
+    		<input class="form-control" type="text" placeholder="Surname" name="surname" required th:field="*{surname}">
+    		
+    		<label for="birthdate"><b>Date of birth</b></label>
+ 			<input class="form-control" type="date" placeholder="Date" name="date-of-birth" required th:field="*{birthDate}">
+ 
+ 			<label for="gender"><b>Gender</b></label>
+ 			 <select class="form-control" th:field="*{gender}">
+            <option th:each="gender : ${T(com.example.demo.model.enumerator.Gender).values()}"
+                    th:value="${gender}"
+                    th:selected="${gender == T(com.example.demo.model.enumerator.Gender)}"
+                    th:text="${gender}">
+        </option>
+    </select>
+ 			<!-- <input type="gender" name="gender" required th: -->
+ 
+    		<label for="email"><b>Email</b></label>
+    		<input class="form-control" type="email" placeholder="email@domain.com" name="email" required th:field="*{email}">
+ 
+    		<label for="password"><b>Password</b></label>
+    		<input class="form-control" type="password" placeholder="Password" id="password" name="psw" required th:field="*{password}">
+ 
+    		<label for="password-repeat"><b>Repeat Password</b></label>
+    		<input class="form-control" type="password" placeholder="Repeat Password" id="password_repeat" name="psw-repeat" oninput="check(this)" required>
+    
+    		<hr>
+    		<button type="submit" class="registerbtn btn btn-outline-primary">Register</button>
+    
+  		</div>
+  		</form>
+  		</div>
+<style>
+span {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 10px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+label {
+	padding-top: 9px;
+}
+
+#centerF {
+	margin: auto;
+	width: 50%;
+	padding: 15px;
+}
+
+#center {
+	margin: auto;
+	width: 50%;
+	border: 2px solid black;
+	padding: 10px;
+	text-align: center;
+}
+
+h1 {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 35px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+p, form {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 17px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+td {
+	text-align: center;
+	width: 30%;
+}
+
+#top {
+	text-align: center;
+	margin-top: 25p;
+}
+</style>
+	</body>
+	<script type="text/javascript">
+	var password = document.getElementById("password"), confirm_password = document.getElementById("password_repeat");
+	
+	
+	function passwordLength(){
+		var passLength = password.value.length;
+		if (passLength > 7){
+			password.setCustomValidity('');
+		} else {
+			password.setCustomValidity("Password too short");
+		}
+	}
+	
+	function validatePassword() {
+		
+		if (password.value != confirm_password.value) {
+			confirm_password.setCustomValidity("Passwords Don't Match");
+		} else {
+			confirm_password.setCustomValidity('');
+		}
+	}
+	password.onkeyup = passwordLength;
+	password.onchange = validatePassword;
+	confirm_password.onkeyup = validatePassword;
+	
+</script>
+ </html>
+ 
+ 
