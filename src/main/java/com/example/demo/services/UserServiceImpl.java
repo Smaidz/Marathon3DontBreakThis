@@ -8,19 +8,52 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Marathon;
+import com.example.demo.model.Results;
 import com.example.demo.model.User;
 import com.example.demo.repo.MarathonRepo;
+import com.example.demo.repo.ResultsRepo;
 import com.example.demo.repo.UserRepo;
 
 @Service
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
-	MarathonServiceImpl marathonServiceImpl;  
+	MarathonServiceImpl marathonServiceImpl; 
+	@Autowired
+	OrganizerServiceImpl organizerServiceImpl;
 	@Autowired
 	UserRepo userRepo;
 	@Autowired
 	MarathonRepo marathonRepo;
+	@Autowired
+	ResultsRepo resultsRepo;
+	
+	@Override
+	public ArrayList<Results> findResByUserId(long id) {
+
+		User user = userRepo.findById(id).get();
+		System.out.println(id);
+		System.out.println(user);
+
+
+		if (user != null) {
+			ArrayList<Results> myResultsList = resultsRepo.findByUser(user);
+			
+			
+			System.out.println(myResultsList.size());
+		
+			if (myResultsList != null) {
+					return myResultsList;
+				}
+			else
+				return new ArrayList<Results>();
+			} else {
+				
+				return new ArrayList<Results>();
+			}
+		
+		
+	}
 	
 	public boolean addNewUser(User user) {
 		if(user != null) {
@@ -71,4 +104,34 @@ public class UserServiceImpl implements UserService{
 		}
 		return myMarathonsReturnList;
 }
+	@Override
+	public User findByID(long usr_id) {
+		User uTemp = userRepo.findById(usr_id).get();
+		return uTemp;
+	}
+	@Override
+	public void updateUserById(User user, long id) {
+		if(userRepo.existsById(id) && user != null) {
+			User userUpdate = userRepo.findById(id).get();
+			userUpdate.setName(user.getName());
+			userUpdate.setSurname(user.getSurname());
+			userUpdate.setEmail(user.getEmail());
+			userUpdate.setPassword(user.getPassword());
+			userUpdate.setBirthDate(user.getBirthDate());
+			userUpdate.setIsSubscribed(user.getIsSubscribed());
+			userRepo.save(userUpdate);
+		}
+	}
+	
+	@Override
+	public ArrayList<User> selectAllUsers() {
+		ArrayList<User> tempList = new ArrayList<User>();
+		for (User o:userRepo.findAll())
+		{
+			tempList.add(o);
+		}
+		return tempList;
+	}
+	
+	
 }

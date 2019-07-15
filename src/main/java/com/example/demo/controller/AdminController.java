@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.model.Marathon;
 import com.example.demo.model.Organizer;
 import com.example.demo.services.AdminServiceIMPL;
+import com.example.demo.services.OrganizerServiceImpl;
 
 @Controller
 @RequestMapping(value = "/a")
@@ -21,6 +22,8 @@ public class AdminController {
 	
 	@Autowired
 	AdminServiceIMPL adminServiceImpl;
+	@Autowired
+	OrganizerServiceImpl organizerServiceImpl;
 	
 	@GetMapping(value = "/view-org")
 	public String vieworg(Model model) {
@@ -41,24 +44,24 @@ public class AdminController {
 			return "add-org";
 		else
 		{
-			adminServiceImpl.addNewOrganizer(organizer);
+			organizerServiceImpl.addNewOrganizer(organizer);
 		return "redirect:/a/view-org";
 		}
 	}
 	@GetMapping(value = "/update-org/{id_org}")
 	public String updateorgGet(@PathVariable(name ="id_org") long id_org, Model model) {
-		model.addAttribute("organizer", adminServiceImpl.selectById_org(id_org));
+		model.addAttribute("organizer", organizerServiceImpl.selectById_org(id_org));
 		return "update-org";
 	}
 	@PostMapping(value = "/update-org/{id_org}")
 	public String updateorgPost(@PathVariable(name="id_org") long id_org, Organizer organizer)
 	{
-		adminServiceImpl.updateOrganizerById_org(organizer, id_org);
+		organizerServiceImpl.updateOrganizerById_org(organizer, id_org);
 		return "redirect:/a/view-org";
 	}
 	@GetMapping(value = "/delete/{id_org}")
 	public String deleteorgGet(@PathVariable(name="id_org") long id_org) {
-		adminServiceImpl.deleteOrganizerById_org(id_org);
+		organizerServiceImpl.deleteOrganizerById_org(id_org);
 		return "redirect:/a/view-org";
 	}
 	@GetMapping(value="/add-marathon")

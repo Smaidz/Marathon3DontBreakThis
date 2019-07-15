@@ -51,6 +51,13 @@ public class Organizer {
 	@Column(name="Email")
 	private String orgemail;
 	
+	@Column(name="FirstLogin")
+	private boolean firstLogin = true;
+	
+	@Column(name="IsAdmin")
+	private boolean isAdmin = false;
+	
+	
 	
 	public Organizer()
 	
@@ -58,13 +65,13 @@ public class Organizer {
 		
 	}
 	
-	public Organizer(long id_org, String name, String login, String password, String orgemail)
+	public Organizer(String name, String login, String password, String orgemail)
 	{
 		//engine = e;
 		//speed = s;
 		//year = y;
 		//color = c;
-		setId_org(id_org);
+		//setId_org(id_org);
 		setName(name);
 		setLogin(login);
 		setPassword(password);
@@ -101,6 +108,25 @@ public class Organizer {
 	}
 	public void setOrgemail(String orgemail) {
 		this.orgemail = orgemail;
+	}
+	public Collection<Marathon> getMarathons() {
+		return marathons;
+	}
+
+	public void setMarathons(Collection<Marathon> marathons) {
+		this.marathons = marathons;
+	}
+
+	public boolean getFirstLogin() {
+		return firstLogin;
+	}
+
+	public void setFirstLogin(boolean firstLogin) {
+		this.firstLogin = firstLogin;
+	}	
+	
+	public boolean getAdmin() {
+		return isAdmin;
 	}
 	
 }

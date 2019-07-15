@@ -30,13 +30,13 @@ public class UserController {
 	UserServiceImpl userServiceImpl;
 	@Autowired
 	MarathonServiceImpl marathonServiceImpl;  
-	@Autowired
+/*	@Autowired
 	UserRepo userRepo;
 	@Autowired
 	MarathonRepo marathonRepo;
 	@Autowired
 	ResultsRepo resultRepo;
-	
+*/	
 	
 	@GetMapping(value="/signup")
 	public String registerUserGet(User user) {
@@ -81,6 +81,7 @@ public class UserController {
 	@GetMapping(value="/my-marathons/{usr_id}")
 	public String viewUserMarathons(@PathVariable(name = "usr_id") long usr_id, Model model) {
 		model.addAttribute("myMarathons", userServiceImpl.findMyMarathons(usr_id));
+		model.addAttribute("username", userServiceImpl.findByID(usr_id).getName());
 		return "my-marathons";
 	}
 	
@@ -94,13 +95,25 @@ public class UserController {
 	
 	@GetMapping(value="/history-view/{id}")
 	public String historyView(@PathVariable(name = "id") long id, Model model) {
-		model.addAttribute("allMarathons", marathonServiceImpl.findAllMarathons());
-		return"marathon-view";
+		model.addAttribute("myResult", userServiceImpl.findResByUserId(id));
+		return"history-view";
+	}
+	
+	@GetMapping(value="/update-user/{id}")
+	public String updateUser(@PathVariable(name="id")long id, Model model) {
+		model.addAttribute("user", userServiceImpl.findByID(id));
+		return "update-user";
+	}
+	
+	@PostMapping(value="/update-user/{id}")
+	public String updateUserPost(@PathVariable(name="id")long id, User user) {
+		userServiceImpl.updateUserById(user, id);
+		return "redirect:/u/marathon-view";
 	}
 	
 	
 	
-	@GetMapping(value="/add")
+	/* @GetMapping(value="/add")
 	public String add(Model model) {
 
 		Marathon m1 = new Marathon("Ventspils Skrien", 40, "Ventspils", "01.01.2019", 1200);
@@ -130,7 +143,7 @@ public class UserController {
 		
 		return "redirect:/u/marathon-view";
 	}
-	
+*/
 	
 }
 

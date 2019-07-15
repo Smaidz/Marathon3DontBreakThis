@@ -73,7 +73,7 @@ public class EmailServiceImpl implements EmailService{
 		ArrayList<InternetAddress> listOfToAddress = new ArrayList<InternetAddress>();
 		for (User temp : users) {
 			if (temp != null) {
-				if (temp.isSubscribed()) {
+				if (temp.getIsSubscribed()) {
 					String name = temp.getName();
 					System.out.println("THANKS FOR SMASHING THAT SUBSCRIBE BUTTON");
 					listOfToAddress.add(new InternetAddress(temp.getEmail()));

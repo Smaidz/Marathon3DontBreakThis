@@ -39,7 +39,7 @@ public class OrganizerController {
 	
 	@GetMapping(value="/add-result")
 	public String addResult(Results results, Model model) {
-		model.addAttribute("users", organizerServiceImpl.selectAllUsers());
+		model.addAttribute("users", userServiceImpl.selectAllUsers());
 		model.addAttribute("marathons", marathonServiceImpl.findAllMarathons());
 		return "add-result";
 	}
@@ -53,7 +53,7 @@ public class OrganizerController {
 		return "/add-result";
 	}
 	
-	@GetMapping(value="/add-marathon")
+	/*@GetMapping(value="/add-marathon")
 	public String addNewCar(Marathon marathon) {
 		return "add-marathon";
 	}
@@ -66,16 +66,32 @@ public class OrganizerController {
 		emailServiceImpl.sendToSubs(organizer);
 		organizerServiceImpl.insertNewMarathon(marathon);
 		return "redirect:/u/marathon-view";
+	}*/
+	
+	@GetMapping(value="/add-marathon/{id}")
+	public String addNewCar(@PathVariable(name="id")long id, Marathon marathon) {
+		return "add-marathon";
 	}
+	
+	@PostMapping(value="/add-marathon/{id}")
+	public String addNewCarPost(@PathVariable(name="id")long id, @Valid Marathon marathon, BindingResult bindingResult) {
+		
+		if(bindingResult.hasErrors())
+			return "add-marathon";
+		else
+			marathonServiceImpl.insertNewMarathon(id, marathon);
+		return "redirect:/u/marathon-view/"+ id;
+	}
+	
 	@GetMapping(value="/update-marathon/{id}")
 	public String updateCar(@PathVariable(name="id")long id, Model model) {
-		model.addAttribute("marathon", organizerServiceImpl.selectById(id));
+		model.addAttribute("marathon", marathonServiceImpl.selectById(id));
 		return "update-marathon";
 	}
 	
 	@PostMapping(value="/update-marathon/{id}")
 	public String updateCarPost(@PathVariable(name="id")long id, Model model, Marathon marathon) {
-		organizerServiceImpl.updateMarathonById(marathon, id);
+		marathonServiceImpl.updateMarathonById(marathon, id);
 		return "redirect:/u/marathon-view";
 	}
 	
@@ -84,6 +100,35 @@ public class OrganizerController {
 		organizerServiceImpl.exportDataExcel();
 		//model.addAttribute("object", );
 	return "export-data";
+	}
+	
+	@GetMapping(value="/org-auth")
+	public String authoriseOrganizerGet(Organizer organizer) {
+		return "org-auth";
+	}
+	
+	@PostMapping(value="/org-auth")
+	public String authoriseOrganizerPost(Organizer organizer) {
+		Organizer orgTemp = organizerServiceImpl.findByLoginAndPasswordServ(organizer);
+		long id = orgTemp.getId_org();
+		if(orgTemp.getFirstLogin())
+			return "redirect:/o/changepsw/"+id;
+		
+		return "redirect:/o/add-marathon/"+id;
+	}
+	
+	@GetMapping(value="/changepsw/{id}")
+	public String changePasswordOnFirstLoginGet(@PathVariable(name="id")long id, Model model) {
+		model.addAttribute("organizer", organizerServiceImpl.selectById_org(id));
+		return "changepsw";
+	}
+	
+	@PostMapping(value="/changepsw/{id}")
+	public String changePasswordOnFirstLoginPost(@PathVariable(name="id")long id, Model model, Organizer organizer, BindingResult bindingResult) {
+		if(bindingResult.hasErrors())
+			return "changepsw";
+		organizerServiceImpl.changeOrgPassword(organizer, id);
+		return "redirect:/o/add-marathon/"+id;
 	}
 	
 	@GetMapping(value = "/marathon-inform/{id_org}")
@@ -100,11 +145,11 @@ public class OrganizerController {
 	    model.addAttribute("isChecked", isChecked);
 	    if(isChecked = true)
 	    {
-	    	ArrayList<Marathon> marResult = new ArrayList<Marathon>();
-	    	model.addAttribute("isChecked", isChecked);
+	    	ArrayList<Marathon> marResultList = new ArrayList<Marathon>();
+	    	marResultList.add(organizerServiceImpl.selectById(id));
 	    	
 	    	
-	    	return "isOK";
+
 	    }
 	    
 	    return "marathon-inform";	

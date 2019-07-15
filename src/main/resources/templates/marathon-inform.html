@@ -25,7 +25,7 @@
 		          
 		          
 		          
-					<form th:action="@{/sendwithattach}" th:object="${organizer}" method="post">
+					<form th:action="@{/marathon-inform/__${id_org}__}" th:object="${organizer}" method="post">
 
 				<input type="checkbox" name="Send?"  th:checked="${isChecked}">
 

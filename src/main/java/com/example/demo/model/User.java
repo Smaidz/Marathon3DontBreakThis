@@ -62,10 +62,10 @@ public class User {
 	
 	@NotNull
 	@Column(name="Gender_Usr")
-	Gender gender;
+	private Gender gender;
 	
 	@ManyToMany(mappedBy="marathonParticipants")
-	Collection<Marathon> marathons;
+	private Collection<Marathon> marathons;
 	
 	@OneToMany(mappedBy="user")
 	private Collection<Results> results;
@@ -74,24 +74,20 @@ public class User {
 	@Column(name="Is_Subscribed")
 	private boolean isSubscribed = true;
 	
+	
+
+
 	public User() {}
 	
 	
 	public User(String name, String surname, String email, 
-			String password, String birthDate, Gender gender) {
+			String password, String birthDate, Gender gender, boolean isSubscribed) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
 		this.birthDate = birthDate;
 		this.gender = gender;
-	}
-	public boolean isSubscribed() {
-		return isSubscribed;
-	}
-
-
-	public void setSubscribed(boolean isSubscribed) {
 		this.isSubscribed = isSubscribed;
 	}
 	public String getName() {
@@ -138,7 +134,15 @@ public class User {
 		return "User [ID_usr=" + ID_usr + ", name=" + name + ", surname=" + surname + ", email=" + email + ", password="
 				+ password + ", birthDate=" + birthDate + ", gender=" + gender + "]";
 	}
+	
+	public boolean getIsSubscribed() {
+		return isSubscribed;
+	}
 
+
+	public void setIsSubscribed(boolean isSubscribed) {
+		this.isSubscribed = isSubscribed;
+	}
 
 	public Collection<Marathon> getMarathons() {
 		return marathons;
@@ -156,6 +160,16 @@ public class User {
 		} else {
 			marathons.add(marathon);
 		}
+	}
+
+
+	public Collection<Results> getResults() {
+		return results;
+	}
+
+
+	public void setResults(Collection<Results> results) {
+		this.results = results;
 	}
 	
 	
