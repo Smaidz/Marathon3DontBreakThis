@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Marathon;
+import com.example.demo.model.Organizer;
 import com.example.demo.model.Results;
 import com.example.demo.model.User;
 import com.example.demo.model.enumerator.Gender;
@@ -20,12 +23,15 @@ import com.example.demo.repo.MarathonRepo;
 import com.example.demo.repo.ResultsRepo;
 import com.example.demo.repo.UserRepo;
 import com.example.demo.services.MarathonServiceImpl;
+import com.example.demo.services.OrganizerServiceImpl;
 import com.example.demo.services.UserServiceImpl;
 
 @Controller
 @RequestMapping(value="/u")
 public class UserController {
 	
+	@Autowired
+	OrganizerServiceImpl organizerServiceImpl;
 	@Autowired
 	UserServiceImpl userServiceImpl;
 	@Autowired
@@ -84,8 +90,6 @@ public class UserController {
 		return "my-marathons";
 	}
 	
-	
-	
 	@GetMapping(value="/marathon-view")
 	public String marathonView(User user, Model model) {
 		model.addAttribute("allMarathons", marathonServiceImpl.findAllMarathons());
@@ -130,6 +134,35 @@ public class UserController {
 		
 		return "redirect:/u/marathon-view";
 	}
+	
+	@GetMapping(value = "/results/{usr_id}")
+	public String resultsAllUsersGet(@PathVariable(name = "usr_id") long usr_id, Model model,User user) 
+	{
+		
+		model.addAttribute("marathons", userServiceImpl.findMyMarathons(usr_id));
+		return "results";
+	}
+	@PostMapping(value="/results/{usr_id}")
+	public String resultsAllUsersPost(@PathVariable(name = "usr_id") long usr_id, User user) 
+	{
+		System.out.println(user.getMarathons().size());
+		ArrayList<Marathon> tempList =new ArrayList<Marathon>();
+		for(Marathon m:user.getMarathons())
+		{
+			tempList.add(m);
+		}
+		userServiceImpl.findResultsForMarathon(tempList.get(0).getId());
+		return "redirect:/u/results/{usr_id}/"+tempList.get(0).getId();
+	}
+	
+	@GetMapping(value = "/results/{usr_id}/{mar_id}")
+	public String resultsAllUsersGet(@PathVariable(name = "usr_id") long usr_id,@PathVariable(name = "mar_id") long mar_id, Model model) 
+	{
+		
+		model.addAttribute("allResults", userServiceImpl.findResultsForMarathon(mar_id));
+		return "result-view";
+	}
+	
 	
 	
 }

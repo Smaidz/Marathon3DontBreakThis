@@ -75,14 +75,6 @@ public class OrganizerController {
 		organizerServiceImpl.updateMarathonById(marathon, id);
 		return "redirect:/u/marathon-view";
 	}
-	/*
-	@GetMapping(value = "/export-data")
-	public String exportData(Model model) {
-		organizerServiceImpl.exportDataExcel();
-		//model.addAttribute("object", );
-	return "export-data";
-	}
-	*/
 	
 	
 	@GetMapping(value = "/export-data/{id}")
@@ -106,17 +98,9 @@ public class OrganizerController {
 		if(organizer.getMarathons().size()==1)
 			organizerServiceImpl.exportOneMarathonExcel(tempList.get(0).getId());
 		if(organizer.getMarathons().size()>1)
-		{	
-			//for(Marathon mar:tempList)	
-			//{
-				
-				//System.out.println("Maratonid "+id);
+		{
 				organizerServiceImpl.exportMarathonsExcel(id, tempList);
-			//	System.out.println("Maratona id:"+mar.getId());
-			//}
 		}
-		//if(organizer.getMarathons().size()==0)
-		//	return "export-data/";
 		
 		return "export-data-ok";
 	}

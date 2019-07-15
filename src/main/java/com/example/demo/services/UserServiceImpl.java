@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Marathon;
+import com.example.demo.model.Results;
 import com.example.demo.model.User;
 import com.example.demo.repo.MarathonRepo;
+import com.example.demo.repo.ResultsRepo;
 import com.example.demo.repo.UserRepo;
 
 @Service
@@ -21,6 +23,8 @@ public class UserServiceImpl implements UserService{
 	UserRepo userRepo;
 	@Autowired
 	MarathonRepo marathonRepo;
+	@Autowired
+	ResultsRepo resultsRepo;
 	
 	public boolean addNewUser(User user) {
 		if(user != null) {
@@ -71,4 +75,18 @@ public class UserServiceImpl implements UserService{
 		}
 		return myMarathonsReturnList;
 }
+
+	@Override
+	public ArrayList<Results> findResultsForMarathon(long mar_id) {
+		// TODO Auto-generated method stub
+		
+		Marathon marathon =marathonRepo.findById(mar_id).get();
+		ArrayList<Results> resultTemp= new ArrayList<Results>();
+		for(Results r: resultsRepo.findByMarathon(marathon))
+		{
+			
+				resultTemp.add(r);
+		}
+		return resultTemp;
+	}
 }
