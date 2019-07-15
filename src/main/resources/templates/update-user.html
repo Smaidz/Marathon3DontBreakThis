@@ -11,7 +11,7 @@
 	
 	<body>
 	
-	<h1 class="animated jello infinite slower" style="text-align:center;margin-top:25px;">Update User</h1>
+	<h1 style="text-align:center;margin-top:25px;">Update User</h1>
 	<div id="centerF">
 	
 	
@@ -47,12 +47,7 @@
 		<td>Repeat Password</td>
 			<td><input class="form-control" type="password" placeholder="Repeat password" id="password_repeat"></td>
 		</tr>
-		
-		<tr>
-		<td>Date of birth</td>
-			<td><input class="form-control" type="date" th:field="*{birthDate}" placeholder="Date of birth" ></td>
-			<td th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Birthdate Error</td>
-		</tr>
+	
 		
 		<tr>
 		<td>Mailing list sub</td>
@@ -62,7 +57,7 @@
 		
 			
 		<tr>
-			<td><input type="submit" class="btn btn-outline-primary" value="Add Marathon" ></td>
+			<td><input type="submit" class="btn btn-outline-primary" value="Update user" ></td>
 		</tr>
 		
 		</table>

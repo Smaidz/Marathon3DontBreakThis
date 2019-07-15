@@ -122,10 +122,20 @@ public class UserServiceImpl implements UserService {
 			userUpdate.setSurname(user.getSurname());
 			userUpdate.setEmail(user.getEmail());
 			userUpdate.setPassword(user.getPassword());
-			userUpdate.setBirthDate(user.getBirthDate());
+			userUpdate.setBirthDate(userUpdate.getBirthDate());
 			userUpdate.setIsSubscribed(user.getIsSubscribed());
 			userRepo.save(userUpdate);
 		}
+	}
+	
+	@Override
+	public ArrayList<User> selectAllUsers() {
+		ArrayList<User> tempList = new ArrayList<User>();
+		for (User o:userRepo.findAll())
+		{
+			tempList.add(o);
+		}
+		return tempList;
 	}
 	
 	

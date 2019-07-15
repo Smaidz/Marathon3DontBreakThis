@@ -20,9 +20,7 @@
 	 <div class="top">
 		<h1>Log in</h1>
 		</div>
-		 <div id="centerF" class="container" style="background-color:#f1f1f1">
-		    <span class="password">Are you an organizer? Login <a th:href="@{/o/org-auth}">here</a></span>
-		  </div>
+		
 		  <div id="centerF" class="container">
 		 
 		    <label for="email"><b>Email</b></label>
@@ -34,10 +32,10 @@
 		 
 		<div  id="centerF" class="container">
 		<button class="btn btn-outline-primary" type="submit">Login</button>
-		    <label>
-		      <input id="centers" type="checkbox" checked="checked" name="remember"> Remember me
-		    </label>
-		 
+		    
+		  <div class="container" style="background-color:#f1f1f1; margin-top:7px">
+		    <span class="password">Are you an organizer? Login <a th:href="@{/o/org-auth}">here</a></span>
+		  </div>
 		</div>
 		 
 		  
@@ -85,6 +83,8 @@ h1 {
 	color: #231f20;
 	text-transform: uppercase;
 	line-height: 1.5em;
+	text-align: center;
+	padding-top:15px;
 }
 
 p, form {
@@ -98,15 +98,29 @@ p, form {
 	line-height: 1.5em;
 }
 
-td {
-	text-align: center;
-	width: 30%;
-}
+td{
+		padding: 10px;
+	    font-family:proxima-nova, sans-serif !important;
+	    font-style: normal;
+	    font-size: 17px;
+	    font-weight:400;
+	    letter-spacing: 3px;
+	    color: #231f20;
+		text-transform: uppercase;
+	    line-height: 1.5em
+		}
 
 #top {
 	text-align: center;
 	margin-top: 25p;
 }
-</style>
+tr:hover{
+			background: rgba(209, 209, 209, 1);
+		}
+		tr{
+			
+			transition: all 0.3s ease 0s;
+		}
+		</style>
 </body>
 </html>

@@ -9,15 +9,19 @@ import com.example.demo.model.Results;
 import com.example.demo.model.User;
 
 public interface OrganizerService{
-	ArrayList<User> selectAllUsers();
-	boolean insertNewMarathon(Marathon marathon);
-	boolean insertNewMarathon(long id, Marathon marathon);
-	boolean updateMarathonById(Marathon marathon, long id);
-	Marathon selectById(long id);
+	
 	boolean exportDataExcel();
 	boolean insertNewResult(Results results);
 	void sendEmail (String orgemail);
 	void sendWithAttach (String orgemail);
 	Organizer findByLoginAndPassword(Organizer organizer);
+	Organizer selectById_org(long id_org);
+	boolean updateOrganizerById_org(Organizer organizer, long id_org);
+	boolean deleteOrganizerById_org(long id_org);
+	boolean addNewOrganizer(Organizer organizer);
+	boolean deleteOrganizerByObject(Organizer organizer);
+	boolean changeOrgPassword(Organizer organizer, long id);
+	boolean organizerAlreadyExists(Organizer organizer);
+	
 
 }

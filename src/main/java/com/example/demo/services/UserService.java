@@ -16,4 +16,5 @@ public interface UserService {
 	User findByID(long usr_id);
 	void updateUserById(User user, long id);
 	ArrayList<Results>  findResByUserId(long id);
+	ArrayList<User> selectAllUsers();
 }

@@ -32,15 +32,12 @@ public class UserController {
 	UserServiceImpl userServiceImpl;
 	@Autowired
 	MarathonServiceImpl marathonServiceImpl;  
-	@Autowired
-	UserRepo userRepo;
-	@Autowired
-	MarathonRepo marathonRepo;
-	@Autowired
-	ResultsRepo resultRepo;
-	@Autowired
-	OrganizerRepo organizerRepo;
-	
+
+	@GetMapping(value="/user-pannel/{id}")
+	public String userPannel(@PathVariable(name = "id") long id, Model model) {
+		model.addAttribute("user", userServiceImpl.findByID(id));
+		return "user-pannel";
+	}
 	
 	@GetMapping(value="/signup")
 	public String registerUserGet(User user) {
@@ -67,7 +64,7 @@ public class UserController {
 		
 		long id = userServiceImpl.findByEmailAndPassword(user).getID_usr();
 		
-		return "redirect:/u/marathon-view/"+id;
+		return "redirect:/u/user-pannel/"+id;
 	}
 	
 	@GetMapping(value="/marathon-view/{usr_id}")
@@ -113,46 +110,8 @@ public class UserController {
 	@PostMapping(value="/update-user/{id}")
 	public String updateUserPost(@PathVariable(name="id")long id, User user) {
 		userServiceImpl.updateUserById(user, id);
-		return "redirect:/u/marathon-view";
-	}
-	
-	
-	
-	@GetMapping(value="/add")
-	public String add(Model model) {
-
-		Marathon m1 = new Marathon("Ventspils Skrien", 40, "Ventspils", "01.01.2019", "1200");
-		Marathon m2 = new Marathon("Rigas pusmaratons", 20, "Riga", "01.01.2019", "1200");
-		Marathon m3 = new Marathon("Lielais skrejiens", 40, "Ventspils", "01.01.2019", "1200");
-		
-		User u1 = new User("Janis", "Berzins", "email@domain.com", "password", "14.04.1991", Gender.Male, true);
-		User u2 = new User("Liene", "Liepa", "email@pasts.lv", "password", "21.12.1993", Gender.Female, false);
-		
-		Organizer o1 = new Organizer("OrganizerABC", "OrgLogin1", "orgpassword", "orgemail@pasts.ru");
-		
-		organizerRepo.save(o1);
-
-		userRepo.save(u1);
-		userRepo.save(u2);
-
-		marathonRepo.save(m1);
-		marathonRepo.save(m2);
-		marathonRepo.save(m3);
-		
-		userServiceImpl.addParticipantToMarathon(u1.getID_usr(), m1.getID_mar());
-		userServiceImpl.addParticipantToMarathon(u1.getID_usr(), m3.getID_mar());
-		userServiceImpl.addParticipantToMarathon(u2.getID_usr(), m1.getID_mar());
-		userServiceImpl.addParticipantToMarathon(u2.getID_usr(), m2.getID_mar());
-		
-		resultRepo.save(new Results(u1, m1, false, "13:00"));
-		resultRepo.save(new Results (u1, m3, true, "12:30"));
-		resultRepo.save(new Results (u2, m1, false, "14:00"));
-		resultRepo.save(new Results (u2, m2, false, "13:30"));
-		
-		return "redirect:/u/marathon-view";
-	}
-	
-	
+		return "redirect:/u/user-pannel/"+id;
+	}	
 }
 
 

@@ -43,45 +43,9 @@ public class OrganizerServiceImpl implements OrganizerService{
 	@Autowired
 	OrganizerRepo organizerRepo;
 	
-	@Override
-	public ArrayList<User> selectAllUsers() {
-		ArrayList<User> tempList = new ArrayList<User>();
-		for (User o:userRepo.findAll())
-		{
-			tempList.add(o);
-		}
-		return tempList;
-	}
 	
-	@Override
-	public boolean insertNewMarathon(Marathon marathon) {
-		if(marathon == null) {
-			return false;
-		}
-		Marathon marathonTemp = marathonRepo.findByNameAndDistanceAndPlaceAndDateAndTime(marathon.getName(), marathon.getDistance(), marathon.getPlace(), marathon.getDate(), marathon.getTime());
-		if(marathonTemp != null) {
-			return false;
-		}else {
-			marathonRepo.save(marathon);
-			return false;
-		}
-	}
 	
-	@Override
-	public boolean insertNewMarathon(long id, Marathon marathon) {
-		if(marathon == null) {
-			return false;
-		}
-		Marathon marathonTemp = marathonRepo.findByNameAndDistanceAndPlaceAndDateAndTime(marathon.getName(), marathon.getDistance(), marathon.getPlace(), marathon.getDate(), marathon.getTime());
-		if(marathonTemp != null) {
-			return false;
-		} else {
-			Organizer organizer = organizerRepo.findById(id).get();
-			marathon.setOrganizer(organizer);
-			marathonRepo.save(marathon);
-			return false;
-		}
-	}
+	
 	
 	@Override
 	public boolean insertNewResult(Results results) {
@@ -98,31 +62,7 @@ public class OrganizerServiceImpl implements OrganizerService{
 		}
 	}
 	
-	@Override
-	public Marathon selectById(long id) {
-		
-		//FIND ONE
-		Marathon carTemp  = marathonRepo.findById(id).get();
-		if(carTemp != null) {
-			return carTemp;
-		}
-		
-		return null;
-	}
-	@Override
-	public boolean updateMarathonById(Marathon marathon, long id) {
-		if(marathonRepo.existsById(id) && marathon != null) {
-			Marathon marathonUpdate = marathonRepo.findById(id).get();
-			marathonUpdate.setName(marathon.getName());
-			marathonUpdate.setDistance(marathon.getDistance());
-			marathonUpdate.setPlace(marathon.getPlace());
-			marathonUpdate.setDate(marathon.getDate());
-			marathonUpdate.setTime(marathon.getTime());
-			marathonRepo.save(marathonUpdate);
-			return true;
-		}
-		return false;
-	}
+	
 	@Override
 	public boolean exportDataExcel()
 	{
@@ -219,6 +159,89 @@ public class OrganizerServiceImpl implements OrganizerService{
 			return oTemp;
 		else 
 			return null;
+	}
+	
+	@Override
+	public Organizer selectById_org(long id_org) {
+		if (id_org >=0) {
+		Organizer orgTemp = organizerRepo.findById(id_org).get();	
+		if(orgTemp!=null)
+			return orgTemp;
+		}
+		return null;
+	}
+	
+	@Override
+	public boolean updateOrganizerById_org(Organizer organizer, long id_org) {
+		if (organizerRepo.existsById(id_org) && organizer!=null) {
+			Organizer orgTemp = organizerRepo.findById(id_org).get();
+			orgTemp.setName(organizer.getName());
+			orgTemp.setLogin(organizer.getLogin());
+			orgTemp.setPassword(organizer.getPassword());
+			organizerRepo.save(orgTemp);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean deleteOrganizerById_org(long id_org) {
+		if (organizerRepo.existsById(id_org))
+		{
+		Organizer orgTemp = organizerRepo.findById(id_org).get();
+			organizerRepo.delete(orgTemp);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean addNewOrganizer(Organizer organizer) {
+		if (organizer==null)
+			return false;
+		Organizer orgTemp = organizerRepo.findByLoginAndPassword(organizer.getLogin(), organizer.getPassword());
+		if(orgTemp!=null) {
+			return false;
+		}
+		else
+		{	
+			organizerRepo.save(organizer);
+			return true;
+		}
+	}	
+	
+	@Override
+	public boolean deleteOrganizerByObject(Organizer organizer) {
+		if(organizerRepo.existsById(organizer.getId_org()) && organizer!=null)
+		{
+			organizerRepo.delete(organizer);
+			return true;
+		}
+	return false;	
+	
+	
+	
+}
+
+
+	@Override
+	public boolean changeOrgPassword(Organizer organizer, long id) {
+		Organizer orgTemp = organizerRepo.findById(id).get();
+		if (orgTemp != null) {
+			orgTemp.setPassword(organizer.getPassword());
+			orgTemp.setFirstLogin(false);
+			organizerRepo.save(orgTemp);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean organizerAlreadyExists(Organizer organizer) {
+		Organizer orgTemp = organizerRepo.findByNameOrLoginOrOrgemail(organizer.getName(), organizer.getLogin(), organizer.getOrgemail());
+		if (orgTemp == null)
+			return false;
+		else 
+			return true;
 	}
 
 	

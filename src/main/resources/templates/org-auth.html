@@ -21,7 +21,7 @@
 		</div>
 		  <div id="centerF" class="container">
 		 
-		    <label for="email"><b>Organizer login</b></label>
+		    <label for="login"><b>Organizer login</b></label>
 		    <input class="form-control" type="text" placeholder="Login" name="login" required th:field="*{login}"/>
 		 
 		    <label for="password"><b>Password</b></label>
@@ -30,9 +30,7 @@
 		 
 		<div  id="centerF" class="container">
 		<button class="btn btn-outline-primary" type="submit">Login</button>
-		    <label>
-		      <input id="centers" type="checkbox" checked="checked" name="remember"> Remember me
-		    </label>
+		    
 		 
 		</div>
 		 
@@ -81,6 +79,8 @@ h1 {
 	color: #231f20;
 	text-transform: uppercase;
 	line-height: 1.5em;
+	text-align: center;
+	padding-top:15px;
 }
 
 p, form {
@@ -94,15 +94,29 @@ p, form {
 	line-height: 1.5em;
 }
 
-td {
-	text-align: center;
-	width: 30%;
-}
+td{
+		padding: 10px;
+	    font-family:proxima-nova, sans-serif !important;
+	    font-style: normal;
+	    font-size: 17px;
+	    font-weight:400;
+	    letter-spacing: 3px;
+	    color: #231f20;
+		text-transform: uppercase;
+	    line-height: 1.5em
+		}
 
 #top {
 	text-align: center;
 	margin-top: 25p;
 }
-</style>
+tr:hover{
+			background: rgba(209, 209, 209, 1);
+		}
+		tr{
+			
+			transition: all 0.3s ease 0s;
+		}
+		</style>
 </body>
 </html>

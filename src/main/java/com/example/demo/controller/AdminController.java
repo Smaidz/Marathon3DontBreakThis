@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.model.Marathon;
 import com.example.demo.model.Organizer;
+import com.example.demo.model.User;
 import com.example.demo.services.AdminServiceIMPL;
+import com.example.demo.services.OrganizerServiceImpl;
 
 @Controller
 @RequestMapping(value = "/a")
@@ -21,6 +23,14 @@ public class AdminController {
 	
 	@Autowired
 	AdminServiceIMPL adminServiceImpl;
+	@Autowired
+	OrganizerServiceImpl organizerServiceImpl;
+	
+	@GetMapping(value="/add")
+	public String add() {
+		adminServiceImpl.uploadTestData();
+		return "redirect:/a/adm-auth";
+	}
 	
 	@GetMapping(value = "/view-org")
 	public String vieworg(Model model) {
@@ -35,34 +45,49 @@ public class AdminController {
 	}
 	
 	@PostMapping(value = "/add-org")
-	public String addorgPost(@Valid Organizer organizer, BindingResult result)
-	{
-		if(result.hasErrors())
+	public String addorgPost(@Valid Organizer organizer, BindingResult result) {
+		if (organizerServiceImpl.organizerAlreadyExists(organizer)) {
 			return "add-org";
-		else
-		{
-			adminServiceImpl.addNewOrganizer(organizer);
-		return "redirect:/a/view-org";
+		} else if(result.hasErrors())
+			return "add-org";
+		else {
+			organizerServiceImpl.addNewOrganizer(organizer);
+			return "redirect:/a/view-org";
 		}
 	}
 	@GetMapping(value = "/update-org/{id_org}")
 	public String updateorgGet(@PathVariable(name ="id_org") long id_org, Model model) {
-		model.addAttribute("organizer", adminServiceImpl.selectById_org(id_org));
+		model.addAttribute("organizer", organizerServiceImpl.selectById_org(id_org));
 		return "update-org";
 	}
 	@PostMapping(value = "/update-org/{id_org}")
 	public String updateorgPost(@PathVariable(name="id_org") long id_org, Organizer organizer)
 	{
-		adminServiceImpl.updateOrganizerById_org(organizer, id_org);
+		organizerServiceImpl.updateOrganizerById_org(organizer, id_org);
 		return "redirect:/a/view-org";
 	}
 	@GetMapping(value = "/delete/{id_org}")
 	public String deleteorgGet(@PathVariable(name="id_org") long id_org) {
-		adminServiceImpl.deleteOrganizerById_org(id_org);
+		organizerServiceImpl.deleteOrganizerById_org(id_org);
 		return "redirect:/a/view-org";
 	}
 	@GetMapping(value="/add-marathon")
 	public String addNewCar(Marathon marathon) {
 		return "add-marathon";
 	}
+	
+	@GetMapping(value="/adm-auth")
+	public String authoriseAdminGet(Organizer organizer) {
+		return "adm-auth";
+	}
+	
+	@PostMapping(value = "/adm-auth")
+	public String authoriseAdminPost(@Valid Organizer organizer, BindingResult result) {
+		
+		long id = organizerServiceImpl.findByLoginAndPassword(organizer).getId_org();
+		
+		return "redirect:/u/marathon-view/"+id;
+	}
+	
+
 }

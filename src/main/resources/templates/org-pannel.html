@@ -1,55 +1,49 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="hhtp://thymeleaf.org">
 <head>
   		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">		    <!-- Required meta tags -->
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+	    
+		<link th:href="@{/css/stylesheet.css}" rel="stylesheet" />		
 	    <!-- Bootstrap CSS -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	</head>
+
 <body>
 
-	<h1 style="text-align:center;margin-top:25px;">Update Organizer</h1>
+	<h1>Organizer Pannel</h1>
 	<div id="centerF">
 	
-	<form action="#" th:action="@{/a/update-org/__${id_org}__}" th:object="${organizer}" method="post">
-		<div id="center">
-		<table>
-			
-		<tr>	
-		<td>Name</td>
-			<td><input class="form-control" type="text" th:field="*{name}" placeholder="Name"></td>
-			<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>			
-		</tr>
-			
-		<tr>	
-		<td>Login</td>
-			<td><input class="form-control" type="text" th:field="*{login}" placeholder="Login"></td>
-			<td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</td>			
-		</tr>
+	<div style="margin-bottom:15px;" id="center">
+		<h2><img style="width:10%; margin-right:10px;" src="https://cdn4.iconfinder.com/data/icons/free-large-boss-icon-set/512/Supervisor.png" th:text="${org.getName()}"></h2>
 		
-		<td>Email</td>
-			<td><input class="form-control" type="email" th:field="*{orgemail}" placeholder="email@domain.com"></td>
-			<td th:if="${#fields.hasErrors('orgemail')}" th:errors="*{orgemail}">Email Error</td>			
-		</tr>
-			
-		<tr>	
-		<td>Password</td>
-			<td><input class="form-control" type="text" th:field="*{password}" placeholder="password"></td>
-			<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>			
-		</tr>
-		
-		<tr>
-		<td><input class="btn btn-outline-primary" type="submit" value="Update organizer"></td>
-		</tr>
-		</table>
-		</div>
-	</form>
+		<button th:onclick="|window.location.href='/u/marathon-view'|"  class="btn btn-outline-primary">View Marathons</button>
+		<button th:onclick="|window.location.href='/o/add-result'|"  class="btn btn-outline-primary">Add result</button>
+		<button th:onclick="|window.location.href='/o/add-marathon/${org.getId_org()}'|"  class="btn btn-outline-primary">Add Marathon</button>
+		<button th:onclick="|window.location.href='/o/marathon-select'|"  class="btn btn-outline-primary">Update Marathon</button>
+		<button th:onclick="|window.location.href='/o/export-data/${org.getId_org()}'|"  class="btn btn-outline-primary">Export Data</button>
+		<button th:onclick="|window.location.href='/o/marathon-inform/${org.getId_org()}'|"  class="btn btn-outline-primary">Inform Users About Marathons</button>
 	</div>
-
-<style>
+	
+	</div>
+	
+	<style>
+	button{
+		width:100%;
+		
+		margin-top: 13px;
+		font-size: 10px;
+		font-family: proxima-nova, sans-serif !important;
+		font-style: normal;
+		font-size: 10px;
+		font-weight: 400;
+		letter-spacing: 3px;
+		color: #231f20;
+		text-transform: uppercase;
+		line-height: 1.5em;
+			}
+	
 span {
 	font-family: proxima-nova, sans-serif !important;
 	font-style: normal;
@@ -82,7 +76,7 @@ label {
 h1 {
 	font-family: proxima-nova, sans-serif !important;
 	font-style: normal;
-	font-size: 35px;
+	font-size: 45px;
 	font-weight: 400;
 	letter-spacing: 3px;
 	color: #231f20;
@@ -119,11 +113,25 @@ td{
 	text-align: center;
 	margin-top: 25p;
 }
- 
+tr:hover{
+			background: rgba(209, 209, 209, 1);
+		}
 		tr{
 			
 			transition: all 0.3s ease 0s;
 		}
-		</style> 
+		h2 {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 25px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+	text-align: center;
+	padding-top:15px;
+}
+		</style>
 </body>
 </html>

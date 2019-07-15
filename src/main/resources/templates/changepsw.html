@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="www.thymeleaf.org">
+<body>
 <head>
   		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">		    <!-- Required meta tags -->
 	    <meta charset="utf-8">
@@ -10,47 +10,28 @@
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	</head>
-<body>
 <div id="centerF">
-	<form action="#" th:action="@{/a/add-org}" th:object="${organizer}" method="post">
-	<div id="center" class="container">
-	<div class="top">
-    		<h1>add organizer </h1>
-    	</div>
-		<table>
-			<tr>
-				<td>Name</td>
-				<td><input class="form-control" type="text" th:field="*{name}" placeholder="Name"></td>
-				<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
-			</tr>
-			<tr>
-				<td>Email</td>
-				<td><input  class="form-control" type="email" th:field="*{orgemail}" placeholder="email@domain.com"></td>
-				<td th:if="${#fields.hasErrors('orgemail')}" th:errors="*{orgemail}">Login Error</td>
-			</tr>
-			<tr>
-				<td>Login</td>
-				<td><input  class="form-control" type="text" th:field="*{login}" placeholder="Login"></td>
-				<td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</td>
-			</tr>
-			<tr>
-				<td>Password</td>
-				<td><input  class="form-control" type="password" th:field="*{password}" id ="password" placeholder="Password"></td>
-				<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error></td>
-			</tr>
-			<tr>
-				<td>Repeat password</td>
-				<td><input  class="form-control" type="password" id ="confirm_password" placeholder="Password"></td>
-				<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error></td>
-			</tr>
-			<tr>
-				<td><input class="registerbtn btn btn-outline-primary" type="submit" value="Add organizer"></td>			
-			</tr>
-		</div>
-		</table>
-	</form>	
-	</div>
-	<style>
+	<form action="#" th:action="@{/o/changepsw/__${id}__}" th:object="${organizer}" method="post">
+
+<div class="container">
+<div id="center">
+    <h1>Password change</h1>
+    <p>Please change your password!</p>
+    <hr>
+
+    <label for="password"><b>New Password</b></label>
+    <input class="form-control" type="password" placeholder="Enter New Password" name="password" id ="password" required th:field="*{password}">
+	
+    <label for="password-repeat"><b>Repeat New Password</b></label>
+    <input class="form-control" type="password" placeholder="Repeat New Password" name="psw-repeat" id ="confirm_password" oninput="check(this)" required>
+   
+    <hr>
+    <button class="registerbtn btn btn-outline-primary" type="submit">Change password!</button>
+  </div>
+  </div>
+  </form>
+  </div>
+  <style>
 span {
 	font-family: proxima-nova, sans-serif !important;
 	font-style: normal;
@@ -111,8 +92,10 @@ td {
 	text-align: center;
 	margin-top: 25p;
 }
-</style>	
+</style>
 </body>
+
+
 <script type="text/javascript">
 	var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
 	
@@ -139,4 +122,5 @@ td {
 	confirm_password.onkeyup = validatePassword;
 	
 </script>
+
 </html>

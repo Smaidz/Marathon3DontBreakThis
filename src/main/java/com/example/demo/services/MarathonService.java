@@ -8,5 +8,10 @@ import com.example.demo.model.Marathon;
 public interface MarathonService {
 	
 	public ArrayList<Marathon> findAllMarathons();
+	boolean insertNewMarathon(Marathon marathon);
+	boolean insertNewMarathon(long id, Marathon marathon);
+	boolean updateMarathonById(Marathon marathon, long id);
+	Marathon selectById(long id);
+	ArrayList<Marathon> selectByOrganizer (long id_org); 
 
 }

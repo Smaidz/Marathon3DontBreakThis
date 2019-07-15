@@ -72,7 +72,7 @@ public class User {
 	
 	@NotNull
 	@Column(name="Is_Subscribed")
-	private boolean isSubscribed;
+	private boolean isSubscribed = true;
 	
 	
 

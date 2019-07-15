@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import com.example.demo.model.Marathon;
 import com.example.demo.model.Organizer;
 import com.example.demo.model.Results;
 import com.example.demo.model.User;
+import com.example.demo.services.AdminServiceIMPL;
 import com.example.demo.services.MarathonServiceImpl;
 import com.example.demo.services.OrganizerServiceImpl;
 import com.example.demo.services.UserServiceImpl;
@@ -32,7 +35,7 @@ public class OrganizerController {
 	
 	@GetMapping(value="/add-result")
 	public String addResult(Results results, Model model) {
-		model.addAttribute("users", organizerServiceImpl.selectAllUsers());
+		model.addAttribute("users", userServiceImpl.selectAllUsers());
 		model.addAttribute("marathons", marathonServiceImpl.findAllMarathons());
 		return "add-result";
 	}
@@ -72,8 +75,8 @@ public class OrganizerController {
 		if(bindingResult.hasErrors())
 			return "add-marathon";
 		else
-			organizerServiceImpl.insertNewMarathon(id, marathon);
-		return "redirect:/u/marathon-view/"+ id;
+			marathonServiceImpl.insertNewMarathon(id, marathon);
+		return "redirect:/u/marathon-view";
 	}
 	
 	
@@ -81,13 +84,13 @@ public class OrganizerController {
 	
 	@GetMapping(value="/update-marathon/{id}")
 	public String updateCar(@PathVariable(name="id")long id, Model model) {
-		model.addAttribute("marathon", organizerServiceImpl.selectById(id));
+		model.addAttribute("marathon", marathonServiceImpl.selectById(id));
 		return "update-marathon";
 	}
 	
 	@PostMapping(value="/update-marathon/{id}")
 	public String updateCarPost(@PathVariable(name="id")long id, Model model, Marathon marathon) {
-		organizerServiceImpl.updateMarathonById(marathon, id);
+		marathonServiceImpl.updateMarathonById(marathon, id);
 		return "redirect:/u/marathon-view";
 	}
 	
@@ -105,10 +108,71 @@ public class OrganizerController {
 	
 	@PostMapping(value="/org-auth")
 	public String authoriseOrganizerPost(Organizer organizer) {
+		Organizer orgTemp = organizerServiceImpl.findByLoginAndPassword(organizer);
+		long id = orgTemp.getId_org();
+		if(orgTemp.getFirstLogin())
+			return "redirect:/o/changepsw/"+id;
 		
-		long id = organizerServiceImpl.findByLoginAndPassword(organizer).getId_org();
+		return "redirect:/o/org-pannel/"+id;
+	}
+	
+	@GetMapping(value="/changepsw/{id}")
+	public String changePasswordOnFirstLoginGet(@PathVariable(name="id")long id, Model model) {
+		model.addAttribute("organizer", organizerServiceImpl.selectById_org(id));
+		return "changepsw";
+	}
+	
+	@PostMapping(value="/changepsw/{id}")
+	public String changePasswordOnFirstLoginPost(@PathVariable(name="id")long id, Model model, Organizer organizer, BindingResult bindingResult) {
+		if(bindingResult.hasErrors())
+			return "changepsw";
+		organizerServiceImpl.changeOrgPassword(organizer, id);
+		return "redirect:/o/org-pannel/"+id;
+	}
+	
+	@GetMapping(value="/marathon-select")
+	public String selectMarathon(Marathon marathon, Model model) {
+		model.addAttribute("marathons", marathonServiceImpl.findAllMarathons());
+		return "marathon-select";
+	}
+	
+	@PostMapping(value="/marathon-select")
+	public String selectMarathon(Marathon marathon) {
 		
-		return "redirect:/o/add-marathon/"+id;
+		System.out.println(marathon.getName());
+		
+		return "redirect:/o/update-marathon/"+ marathon.getName(); // id is stored in name var
+	}
+	
+	@GetMapping(value="/org-pannel/{id}")
+	public String userPannel(@PathVariable(name = "id") long id, Model model) {
+		
+		model.addAttribute("org", organizerServiceImpl.selectById_org(id));
+		return "org-pannel";
+	}
+	
+	@GetMapping(value = "/marathon-inform/{id_org}")
+	public String showCheckboxGet(@PathVariable(name = "id_org") long id_org,Model model) {
+	    ArrayList<Marathon> marListTemp = marathonServiceImpl.selectByOrganizer(id_org);
+	    model.addAttribute("marathons", marListTemp);
+	    return "marathon-inform";
+	}
+	@PostMapping(value = "/marathon-inform/{id_org}")
+	public String showCheckboxPost(@PathVariable(name = "id_org") long id_org, Model model)
+	{
+	    boolean isChecked = false;
+	    model.addAttribute("marathons", marathonServiceImpl.selectByOrganizer(id_org));
+	    model.addAttribute("isChecked", isChecked);
+	    if(isChecked = true)
+	    {
+	    	ArrayList<Marathon> marResult = new ArrayList<Marathon>();
+	    	model.addAttribute("isChecked", isChecked);
+	    	
+	    	
+	    	return "isOK";
+	    }
+	    
+	    return "marathon-inform";	
 	}
 	
 }

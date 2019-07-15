@@ -10,31 +10,75 @@
 		</head>
 <body>
 <table id="center">
+<h1 >Your history</h1>
 <th:block th:each="myresult : ${myResult}">
-	<tr id="centerF">
-		<td th:text="${myresult.getUser()} + '(user)'"> </td>
-		<td th:text="${myresult.getMarathon()} + ' - (marathon)'"> </td>
-		<td th:text="${myresult.isDisqualified()} + '(disqualified)'"> </td>
-		<td th:text="${myresult.getTimeResult()} + '(time)'"> </td>
+	<tr id="center">
+		<td th:utext="'(participant)<br />' +  ${myresult.getUser().getName()}"> </td>
+		
+		
+		<td th:utext="'(marathon)<br />' + ${myresult.getMarathon().getName()} + ' - ' + ${myresult.getMarathon().getDistance()}+ 'km'"> </td>
+		
+		
+		<td th:utext="'(disqualified)<br />' + ${myresult.isDisqualified()}"> </td>
+		<td th:utext="'(time)<br />' + ${myresult.getTimeResult()}"> </td>
 	</tr>
 </th:block>
 </table>
 <style>
-	#centerB{
-			margin: auto;
-			width: 50%;
-			border: 1px solid black;
-			padding: 10px;
-			margin-top:20px;
-		}
-	#center{
-			margin: auto;
-			width: 50%;
-			border: 2px solid black;
-			padding: 10px;
-			margin-top:20px;
-		}
-		td{
+span {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 10px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+label {
+	padding-top: 9px;
+}
+
+#centerF {
+	margin: auto;
+	width: 50%;
+	padding: 15px;
+}
+
+#center {
+	margin: auto;
+	width: 50%;
+	border: 2px solid black;
+	padding: 10px;
+	text-align: center;
+}
+
+h1 {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 35px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+	text-align: center;
+	padding-top:15px;
+}
+
+p, form {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 17px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+td{
 		padding: 10px;
 	    font-family:proxima-nova, sans-serif !important;
 	    font-style: normal;
@@ -45,13 +89,18 @@
 		text-transform: uppercase;
 	    line-height: 1.5em
 		}
-		tr:hover{
+
+#top {
+	text-align: center;
+	margin-top: 25p;
+}
+tr:hover{
 			background: rgba(209, 209, 209, 1);
 		}
 		tr{
 			
 			transition: all 0.3s ease 0s;
 		}
-	</style>
+		</style>
 </body>
 </html>

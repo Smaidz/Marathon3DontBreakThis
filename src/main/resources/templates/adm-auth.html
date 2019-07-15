@@ -1,54 +1,44 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="www.thymeleaf.org">
+<link href="/demo/src/main/resources/templates/css/authpage.css" rel="stylesheet" />
 <head>
-  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">		    <!-- Required meta tags -->
-	    <meta charset="utf-8">
+	 <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+	    
+		<link href="style.css" type="text/css" rel="stylesheet">
+		
 	    <!-- Bootstrap CSS -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	</head>
-<body>
-
-	<h1 style="text-align:center;margin-top:25px;">Update Organizer</h1>
-	<div id="centerF">
 	
-	<form action="#" th:action="@{/a/update-org/__${id_org}__}" th:object="${organizer}" method="post">
-		<div id="center">
-		<table>
-			
-		<tr>	
-		<td>Name</td>
-			<td><input class="form-control" type="text" th:field="*{name}" placeholder="Name"></td>
-			<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>			
-		</tr>
-			
-		<tr>	
-		<td>Login</td>
-			<td><input class="form-control" type="text" th:field="*{login}" placeholder="Login"></td>
-			<td th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</td>			
-		</tr>
-		
-		<td>Email</td>
-			<td><input class="form-control" type="email" th:field="*{orgemail}" placeholder="email@domain.com"></td>
-			<td th:if="${#fields.hasErrors('orgemail')}" th:errors="*{orgemail}">Email Error</td>			
-		</tr>
-			
-		<tr>	
-		<td>Password</td>
-			<td><input class="form-control" type="text" th:field="*{password}" placeholder="password"></td>
-			<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>			
-		</tr>
-		
-		<tr>
-		<td><input class="btn btn-outline-primary" type="submit" value="Update organizer"></td>
-		</tr>
-		</table>
-		</div>
-	</form>
-	</div>
+</head>
 
+<body>
+ <div id="centerF">
+	<form action="#" th:action="@{/a/adm-auth}" th:object="${organizer}" method="post">
+	<div id="center" class="container">
+	 <div class="top">
+		<h1>Log in</h1>
+		</div>
+		  <div id="centerF" class="container">
+		 
+		    <label for="login"><b>Admin login</b></label>
+		    <input class="form-control" type="text" placeholder="Login" name="login" required th:field="*{login}"/>
+		 
+		    <label for="password"><b>Password</b></label>
+		    <input class="form-control" type="password" placeholder="Password" name="password" required th:field="*{password}"/>
+		  </div>
+		 
+		<div  id="centerF" class="container">
+		<button class="btn btn-outline-primary" type="submit">Login</button>
+		 
+		</div>
+		 
+		  
+	 
+	 
+	 </div>
+	</form>
+</div>
 <style>
 span {
 	font-family: proxima-nova, sans-serif !important;
@@ -119,11 +109,13 @@ td{
 	text-align: center;
 	margin-top: 25p;
 }
- 
+tr:hover{
+			background: rgba(209, 209, 209, 1);
+		}
 		tr{
 			
 			transition: all 0.3s ease 0s;
 		}
-		</style> 
+		</style>
 </body>
 </html>

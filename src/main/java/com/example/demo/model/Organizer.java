@@ -50,7 +50,11 @@ public class Organizer {
 	@Column(name="Email")
 	private String orgemail;
 	
+	@Column(name="FirstLogin")
 	private boolean firstLogin = true;
+	
+	@Column(name="IsAdmin")
+	private boolean isAdmin = false;
 	
 	
 	public Organizer()
@@ -109,11 +113,19 @@ public class Organizer {
 		this.marathons = marathons;
 	}
 
-	public boolean isFirstLogin() {
+	public boolean getFirstLogin() {
 		return firstLogin;
 	}
 
 	public void setFirstLogin(boolean firstLogin) {
 		this.firstLogin = firstLogin;
 	}	
+	
+	public boolean getAdmin() {
+		return isAdmin;
+	}
+	
+	public void setAdmin() {
+		this.isAdmin = true;
+	}
 }
