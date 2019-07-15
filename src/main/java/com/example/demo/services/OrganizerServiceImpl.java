@@ -226,8 +226,6 @@ public class OrganizerServiceImpl implements OrganizerService{
             celln.setCellValue("Name");
             Cell cellp = row.createCell(colNum++);
             cellp.setCellValue("Surname");
-            Cell cellid = row.createCell(colNum++);
-            cellid.setCellValue("Gender");
             Cell celldi= row.createCell(colNum++);
             celldi.setCellValue("BirthDate");
             Cell cellda = row.createCell(colNum++);
@@ -242,12 +240,11 @@ public class OrganizerServiceImpl implements OrganizerService{
 				row = sheet.createRow(rowNum++);
 	            colNum = 0;
 	            
-	            Cell cell0 = row.createCell(colNum++);
-                cell0.setCellValue(results1.getUser().getName());
-	            Cell cell = row.createCell(colNum++);
-	            cell.setCellValue(results1.getUser().getSurname());
+	      
+	            Cell cell1 = row.createCell(colNum++);
+	            cell1.setCellValue(results1.getUser().getName());
 	            Cell cell2 = row.createCell(colNum++);
-	            //cell2.setCellValue(results1.getUser().getGender());
+	            cell2.setCellValue(results1.getUser().getSurname());
 	            Cell cell3 = row.createCell(colNum++);
 	            cell3.setCellValue(results1.getUser().getBirthDate());
 	            Cell cell4 = row.createCell(colNum++);
@@ -293,8 +290,6 @@ public class OrganizerServiceImpl implements OrganizerService{
 	            celln.setCellValue("Name");
 	            Cell cellp = row.createCell(colNum++);
 	            cellp.setCellValue("Surname");
-	            Cell cellid = row.createCell(colNum++);
-	            cellid.setCellValue("Gender");
 	            Cell celldi= row.createCell(colNum++);
 	            celldi.setCellValue("BirthDate");
 	            Cell cellda = row.createCell(colNum++);
@@ -309,12 +304,11 @@ public class OrganizerServiceImpl implements OrganizerService{
 					row = sheet.createRow(rowNum++);
 		            colNum = 0;
 		            
-		            Cell cell0 = row.createCell(colNum++);
-	                cell0.setCellValue(r.getUser().getName());
+		  
 		            Cell cell = row.createCell(colNum++);
-		            cell.setCellValue(r.getUser().getSurname());
+		            cell.setCellValue(r.getUser().getName());
 		            Cell cell2 = row.createCell(colNum++);
-		            //cell2.setCellValue(r.getUser().getGender());
+		            cell2.setCellValue(r.getUser().getSurname());
 		            Cell cell3 = row.createCell(colNum++);
 		            cell3.setCellValue(r.getUser().getBirthDate());
 		            Cell cell4 = row.createCell(colNum++);
