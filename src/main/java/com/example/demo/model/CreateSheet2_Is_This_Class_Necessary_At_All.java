@@ -6,7 +6,7 @@
 //
 //
 //				IS THIS CLASS EVEN NECESSARY?
-//
+//				NO IT ISN'T
 //
 //
 //
