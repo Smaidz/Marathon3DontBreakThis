@@ -13,7 +13,7 @@
 	<body>
 	
 	<div id="centerF">
-		<form action="#" th:action="@{/o/export-data/__${id}__}" th:object="${marathon}" method="post">
+		<form action="#" th:action="@{/o/export-data/__${id}__}" th:object="${organizer}" method="post">
 		<div id="center" class="container">
 
 		<div class="top">
@@ -62,13 +62,28 @@
 	        	</option>
     		</select>
  		-->
-    		<label for="marathon"><b>Marathons</b></label>
- 			<select class="form-control" th:field="*{marathon}" >
-	            <option th:each="marathon : ${marathon}"
-	                    th:value="${marathon.getId()}"
-	                    th:text="${marathon.getName()}">
+ 		
+    	<!--
+    	<label for="marathons"><b>Marathons</b></label>
+ 			<select class="form-control"     multiple="multiple" >   -- th:field="*{marathons}" --
+	            <option th:each="mar : ${marathons}"
+	                    th:value="${mar.getId()}"
+	                    th:text="${mar.getName()}">
 	        	</option>
     		</select>
+    	-->
+    	<select class="form-control" th:field="*{marathons}" multiple="multiple" >
+        <option th:each="mar : ${marathons}" 
+       
+                
+                th:field="*{marathons}" 
+                th:value="${mar.getId()}" 
+                th:text="${mar.getName()}">                   
+        </option>
+</select>
+ 
+    		
+    		
     		
     	<!--
     		<label for="disqualified"><b>Disqualified</b></label>

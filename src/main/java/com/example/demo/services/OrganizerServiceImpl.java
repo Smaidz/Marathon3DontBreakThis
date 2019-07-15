@@ -208,7 +208,7 @@ public class OrganizerServiceImpl implements OrganizerService{
 		final String FILE_NAME = "MarathonExcel.xlsx";
 
 	        XSSFWorkbook workbook = new XSSFWorkbook();
-	        XSSFSheet sheet = workbook.createSheet("Marathon info");
+	        XSSFSheet sheet = workbook.createSheet("Marathon results");
 			
 			ArrayList<Results> tempRes = new ArrayList<Results>();
 			for (Results r:resultsRepo.findAll())
@@ -273,5 +273,84 @@ public class OrganizerServiceImpl implements OrganizerService{
 	    System.out.println("Done");
 		return false;
 	}
+		
+		@Override
+		public boolean exportMarathonsExcel(long id, ArrayList<Marathon> marList)
+		{
+			final String FILE_NAME = "MarathonExcel.xlsx";
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			for(Marathon m: marList)
+			{
+				XSSFSheet sheet = workbook.createSheet(m.getName());
+				
+				
+		        int rowNum = 1;
+		        System.out.println("Creating excel");
+		        
+		        Row row = sheet.createRow(rowNum++);
+		        int colNum = 0;
+	            Cell celln = row.createCell(colNum++);
+	            celln.setCellValue("Name");
+	            Cell cellp = row.createCell(colNum++);
+	            cellp.setCellValue("Surname");
+	            Cell cellid = row.createCell(colNum++);
+	            cellid.setCellValue("Gender");
+	            Cell celldi= row.createCell(colNum++);
+	            celldi.setCellValue("BirthDate");
+	            Cell cellda = row.createCell(colNum++);
+	            cellda.setCellValue("Distance");
+	            Cell cellt= row.createCell(colNum++);
+	            cellt.setCellValue("Result");
+	            Cell cellm = row.createCell(colNum++);
+	            cellm.setCellValue("Disq");
+		        
+	            for (Results r:findAllResultsByMarathon(m))
+				{ 
+					row = sheet.createRow(rowNum++);
+		            colNum = 0;
+		            
+		            Cell cell0 = row.createCell(colNum++);
+	                cell0.setCellValue(r.getUser().getName());
+		            Cell cell = row.createCell(colNum++);
+		            cell.setCellValue(r.getUser().getSurname());
+		            Cell cell2 = row.createCell(colNum++);
+		            //cell2.setCellValue(r.getUser().getGender());
+		            Cell cell3 = row.createCell(colNum++);
+		            cell3.setCellValue(r.getUser().getBirthDate());
+		            Cell cell4 = row.createCell(colNum++);
+		            cell4.setCellValue(r.getMarathon().getDistance());
+		            Cell cell5 = row.createCell(colNum++);
+		            cell5.setCellValue(r.getTimeResult());
+		            Cell cell6 = row.createCell(colNum++);
+		            cell6.setCellValue(r.isDisqualified());
+				}
+				}
+		        try {
+		        	//File file = new File("D:/data/file.xlsx");
+		        	//File file = new File("MarathonInfoSystem-master/src/main/resources/file.xlsx");
+		            //FileOutputStream outputStream = new FileOutputStream(file);
+		            FileOutputStream outputStream = new FileOutputStream(FILE_NAME);
+		            workbook.write(outputStream);
+		            workbook.close();
+		        } catch (FileNotFoundException e) {
+		            e.printStackTrace();
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+		    System.out.println("Done");
+			return false;
+		}
+
+		@Override
+		public ArrayList<Results> findAllResultsByMarathon(Marathon maraton) {
+			// TODO Auto-generated method stub
+			
+			ArrayList<Results> resultTemp= resultsRepo.findByMarathon(maraton);
+			if (resultTemp==null)
+			{
+				return new ArrayList<Results>();
+			}
+			else return resultTemp;
+		}
 	
 }

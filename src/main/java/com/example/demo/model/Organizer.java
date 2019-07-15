@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -101,6 +102,14 @@ public class Organizer {
 	}
 	public void setOrgemail(String orgemail) {
 		this.orgemail = orgemail;
+	}
+
+	public Collection<Marathon> getMarathons() {
+		return marathons;
+	}
+
+	public void setMarathons(Collection<Marathon> marathons) {
+		this.marathons = marathons;
 	}
 	
 }

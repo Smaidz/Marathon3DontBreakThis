@@ -15,9 +15,11 @@ public interface OrganizerService{
 	Marathon selectById(long id);
 	boolean exportAllMarathonsExcel();
 	boolean exportOneMarathonExcel(long id);
+	boolean exportMarathonsExcel(long id,ArrayList<Marathon> marList);
 	boolean insertNewResult(Results results);
 	void sendEmail (String orgemail);
 	void sendWithAttach (String orgemail);
 	ArrayList<Marathon> findMarathonByOrganizerById(long id);
 	//ArrayList<Results> findResultsByMarathonId(long id);
+	ArrayList<Results> findAllResultsByMarathon(Marathon maraton);
 }

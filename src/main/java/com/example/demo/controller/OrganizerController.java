@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.validation.Valid;
 
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.model.Marathon;
+import com.example.demo.model.Organizer;
 import com.example.demo.model.Results;
+import com.example.demo.model.User;
+import com.example.demo.model.enumerator.Gender;
 import com.example.demo.services.MarathonServiceImpl;
 import com.example.demo.services.OrganizerServiceImpl;
 import com.example.demo.services.UserServiceImpl;
@@ -82,22 +86,39 @@ public class OrganizerController {
 	
 	
 	@GetMapping(value = "/export-data/{id}")
-	public String exportDataGet(@PathVariable(name="id")long id, Model model,Marathon marathon) {
+	public String exportDataGet(@PathVariable(name="id")long id, Model model,Organizer organizer) {
 		ArrayList<Marathon> tempList=organizerServiceImpl.findMarathonByOrganizerById(id);
 		
-		//organizerServiceImpl.exportDataExcel();
-		model.addAttribute("marathon",tempList );
+		model.addAttribute("marathons",tempList );
 		return "export-data";
 	}
 	@PostMapping(value="/export-data/{id}")
-	public String exportDataGet(@PathVariable(name="id")long id,@Valid Marathon marathon, BindingResult bindingResult) {
+	public String exportDataGet(@PathVariable(name="id")long id,Organizer organizer) {
+		System.out.println(organizer.getMarathons().size());
 		
-		if(bindingResult.hasErrors())
-			return "export-data";
+	
+		ArrayList<Marathon> tempList=new ArrayList<>();
+		for(Marathon m:organizer.getMarathons())
+		{
+			tempList.add(m);
+			System.out.println(m.getId());
+		}
+		if(organizer.getMarathons().size()==1)
+			organizerServiceImpl.exportOneMarathonExcel(tempList.get(0).getId());
+		if(organizer.getMarathons().size()>1)
+		{	
+			//for(Marathon mar:tempList)	
+			//{
+				
+				//System.out.println("Maratonid "+id);
+				organizerServiceImpl.exportMarathonsExcel(id, tempList);
+			//	System.out.println("Maratona id:"+mar.getId());
+			//}
+		}
+		//if(organizer.getMarathons().size()==0)
+		//	return "export-data/";
 		
-		organizerServiceImpl.exportOneMarathonExcel(marathon.getId());
-		//organizerServiceImpl.insertNewResult(results);
-		return "export-data";
+		return "export-data-ok";
 	}
 	
 
