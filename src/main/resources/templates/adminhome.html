@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+	    <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		</head>
+<body>
+<h2><img style="width:5%; margin-right:10px;" src="https://cdn4.iconfinder.com/data/icons/free-large-boss-icon-set/512/Supervisor.png" th:text="${org.getName()}"></h2>
+	<table id="center">
+		   
+		      <tr id="center" >
+		      	
+		  		 <td>Users CRUD</td>
+		         <td> <button th:onclick="|window.location.href='/a/all-users'|"  class="btn btn-outline-primary">View Users</button></td>
+		         <td> <button th:onclick="|window.location.href='/u/signup'|"  class="btn btn-outline-primary">Create User</button></td>
+
+		        
+		      </tr>
+		      <tr id="center" >
+		      	
+		  		 <td>Organizers CRUD</td>
+		         <td> <button th:onclick="|window.location.href='/a/view-org'|"  class="btn btn-outline-primary">View Organizers</button></td>
+		         <td> <button th:onclick="|window.location.href='/a/add-org'|"  class="btn btn-outline-primary">Create Organizer</button></td>
+
+		        
+		      </tr>
+		      <tr id="center" >
+		      	
+		  		 <td>Marathons CRUD</td>
+		         <td> <button th:onclick="|window.location.href='/a/marathon-view-admin'|"  class="btn btn-outline-primary">View Marathons</button></td>
+		         <td> <button th:onclick="|window.location.href='/o/add-marathon/__${org.getId_org()}__'|"  class="btn btn-outline-primary">Create Marathon</button></td>
+
+		        
+		      </tr>
+		      <tr id="center" >
+		      	
+		  		 <td>Results CRUD</td>
+		         <td> <button th:onclick="|window.location.href='/a/results-view-admin'|"  class="btn btn-outline-primary">View Results</button></td>
+		         <td> <button th:onclick="|window.location.href='/o/add-result'|"  class="btn btn-outline-primary">Create Results</button></td>
+
+		        
+		      </tr>
+		      
+		   </th:block>
+		</table>
+</body>
+<style>
+button{
+		width:100%;
+		
+	
+		font-size: 10px;
+		font-family: proxima-nova, sans-serif !important;
+		font-style: normal;
+		font-size: 10px;
+		font-weight: 400;
+		letter-spacing: 3px;
+		color: #231f20;
+		text-transform: uppercase;
+		line-height: 1.5em;
+			}
+	
+span {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 10px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+label {
+	padding-top: 9px;
+}
+
+#centerF {
+	margin: auto;
+	width: 50%;
+	padding: 15px;
+}
+
+#center {
+	margin: auto;
+	width: 50%;
+	border: 2px solid black;
+	padding: 10px;
+	text-align: center;
+}
+
+h1 {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 45px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+	text-align: center;
+	padding-top:15px;
+}
+
+p, form {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 17px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+}
+
+td{
+		padding: 10px;
+	    font-family:proxima-nova, sans-serif !important;
+	    font-style: normal;
+	    font-size: 17px;
+	    font-weight:400;
+	    letter-spacing: 3px;
+	    color: #231f20;
+		text-transform: uppercase;
+	    line-height: 1.5em
+		}
+
+#top {
+	text-align: center;
+	margin-top: 25p;
+}
+tr:hover{
+			background: rgba(209, 209, 209, 1);
+		}
+		tr{
+			
+			transition: all 0.3s ease 0s;
+		}
+		h2 {
+	font-family: proxima-nova, sans-serif !important;
+	font-style: normal;
+	font-size: 25px;
+	font-weight: 400;
+	letter-spacing: 3px;
+	color: #231f20;
+	text-transform: uppercase;
+	line-height: 1.5em;
+	text-align: center;
+	padding-top:15px;
+}
+		</style>
+</html>

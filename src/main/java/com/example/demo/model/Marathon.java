@@ -77,7 +77,7 @@ public class Marathon {
 	public Marathon() {}
 
 	
-	public Marathon(String n, int dis, String p, String dat, String t) {
+	public Marathon(String n, int dis, String p, String dat, String t, Organizer org) {
 		name = n;
 		distance= dis;
 		place = p;

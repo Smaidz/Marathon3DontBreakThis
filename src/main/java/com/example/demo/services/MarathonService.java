@@ -13,5 +13,6 @@ public interface MarathonService {
 	boolean updateMarathonById(Marathon marathon, long id);
 	Marathon selectById(long id);
 	ArrayList<Marathon> selectByOrganizer (long id_org); 
+	void deleteMarathonByID (long ID_mar);
 
 }

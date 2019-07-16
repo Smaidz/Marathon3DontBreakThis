@@ -14,8 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.model.Marathon;
 import com.example.demo.model.Organizer;
 import com.example.demo.model.User;
+import com.example.demo.services.AdminService;
 import com.example.demo.services.AdminServiceIMPL;
+import com.example.demo.services.MarathonService;
+import com.example.demo.services.MarathonServiceImpl;
+import com.example.demo.services.OrganizerService;
 import com.example.demo.services.OrganizerServiceImpl;
+import com.example.demo.services.ResultService;
+import com.example.demo.services.ResultServiceImpl;
+import com.example.demo.services.UserService;
+import com.example.demo.services.UserServiceImpl;
 
 @Controller
 @RequestMapping(value = "/a")
@@ -25,6 +33,12 @@ public class AdminController {
 	AdminServiceIMPL adminServiceImpl;
 	@Autowired
 	OrganizerServiceImpl organizerServiceImpl;
+	@Autowired
+	UserServiceImpl userServiceImpl;
+	@Autowired
+	MarathonServiceImpl marathonServiceImpl;
+	@Autowired
+	ResultServiceImpl resultServiceImpl;
 	
 	@GetMapping(value="/add")
 	public String add() {
@@ -86,8 +100,61 @@ public class AdminController {
 		
 		long id = organizerServiceImpl.findByLoginAndPassword(organizer).getId_org();
 		
-		return "redirect:/u/marathon-view/"+id;
+		return "redirect:/a/adminhome/"+id;
 	}
 	
+	@GetMapping(value="/adminhome/{id_adm}")
+	public String adminHomeGet(@PathVariable(name = "id_adm") long id_adm, Model model) {
+		model.addAttribute("org", organizerServiceImpl.selectById_org(id_adm));
+		return "adminhome";
+	}
+	
+	@GetMapping(value="/all-users")
+	public String marathonView(Model model) {
+		model.addAttribute("allUsers", userServiceImpl.selectAllUsers());
+		return "all-users";
+	}
+	
+	@GetMapping(value="/update-user-admin/{id}")
+	public String updateUser(@PathVariable(name="id")long id, Model model) {
+		model.addAttribute("user", userServiceImpl.findByID(id));
+		return "update-user-admin";
+	}
+	
+	@PostMapping(value="/update-user-admin/{id}")
+	public String updateUserPost(@PathVariable(name="id")long id, User user) {
+		adminServiceImpl.adminUpdateUserById(user, id);
+		return "redirect:/a/all-users/";
+	}
+	
+	@GetMapping(value="/delete-user-admin/{id}")
+	public String DeleteUser(@PathVariable(name="id")long id) {
+		userServiceImpl.deleteUserByID(id);
+		return "redirect:/a/all-users";
+	}
+	
+	@GetMapping(value="/marathon-view-admin")
+	public String marathonViewAdmin(Model model) {
+		model.addAttribute("allMarathons", marathonServiceImpl.findAllMarathons());
+		return "marathon-view-admin";
+	}
+	
+	@GetMapping(value="/delete-marathon/{id}")
+	public String DeleteMarathon(@PathVariable(name="id")long id) {
+		marathonServiceImpl.deleteMarathonByID(id);
+		return "redirect:/a/marathon-view-admin";
+	}
+	
+	@GetMapping(value="/results-view-admin")
+	public String viewAllResults(Model model) {
+		model.addAttribute("allResults", adminServiceImpl.getAllResults());
+		return "results-view-admin";
+	}
+	
+	@GetMapping(value="/delete-result/{id}")
+	public String DeleteResult(@PathVariable(name="id")long id) {
+		resultServiceImpl.deleteById_res(id);
+		return "redirect:/a/results-view-admin";
+	}
 
 }

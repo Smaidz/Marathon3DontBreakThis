@@ -1,6 +1,5 @@
 package com.example.demo.repo;
 
-import java.security.Timestamp;
 import java.util.ArrayList;
 
 import org.springframework.data.repository.CrudRepository;
@@ -14,4 +13,7 @@ public interface ResultsRepo extends CrudRepository<Results, Long> {
 	Results findByUserAndMarathonAndDisqualifiedAndTimeResult
 	(User user, Marathon marathon, boolean disqualified, String timeResult);
 	ArrayList<Results> findByUser(User user);
+	ArrayList<Results> findAll();
+	Results findById(long id);
+	ArrayList<Results> findByMarathon(Marathon maraton);
 }

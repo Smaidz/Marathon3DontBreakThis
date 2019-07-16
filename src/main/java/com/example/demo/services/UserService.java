@@ -17,4 +17,6 @@ public interface UserService {
 	void updateUserById(User user, long id);
 	ArrayList<Results>  findResByUserId(long id);
 	ArrayList<User> selectAllUsers();
+	boolean deleteUserByID(long usr_id);
+	ArrayList<Results> findResultsForMarathon(long mar_id);
 }

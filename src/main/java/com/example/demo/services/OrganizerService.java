@@ -22,6 +22,10 @@ public interface OrganizerService{
 	boolean deleteOrganizerByObject(Organizer organizer);
 	boolean changeOrgPassword(Organizer organizer, long id);
 	boolean organizerAlreadyExists(Organizer organizer);
-	
+	boolean exportAllMarathonsExcel();
+	boolean exportOneMarathonExcel(long id);
+	boolean exportMarathonsExcel(long id,ArrayList<Marathon> marList);
+	ArrayList<Marathon> findMarathonByOrganizerById(long id);
+	ArrayList<Results> findAllResultsByMarathon(Marathon maraton);
 
 }

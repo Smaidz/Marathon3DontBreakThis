@@ -96,6 +96,16 @@ public class MarathonServiceImpl implements MarathonService {
 			return marList;
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public void deleteMarathonByID(long ID_mar) {
+		if(marathonRepo.existsById(ID_mar)) {
+			marathonRepo.deleteById(ID_mar);
+			
+		}
+		
+		
+	}
 	
 	
 }

@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-<head>
+<html xmlns:th="hhtp://thymeleaf.org">
+	<head>
 	    <!-- Required meta tags -->
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,22 +7,41 @@
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		</head>
-<body>
-<h1 style="text-align:center;margin-top:25px;">organizers</h1>
-<table id="center">
-<th:block th:each="organizer: ${object}">
-	<tr id="center">
-		<td th:utext="'(id)<br/>' + ${organizer.getId_org()} + '. '"> </td>
-		<td th:utext="'(name)<br/>' + ${organizer.getName()} + ' '"> </td>
-		<td th:utext="'(login)<br/>' + ${organizer.getLogin()} + ' '"> </td>
-		<td th:utext="'(email)<br/>' + ${organizer.getOrgemail()} + ' '"> </td>
-		<td th:utext="'(password)<br/>' + ${organizer.getPassword()} "> </td>
-		 <td> <button th:onclick="|window.location.href='/a/update-org/__${organizer.getId_org()}__'|"  class="btn btn-outline-primary">Update Organizer</button></td>
-		         <td> <button th:onclick="|window.location.href='/a/delete/__${organizer.getId_org()}__'|"  class="btn btn-outline-primary">Delete Organizer</button></td>
-	</tr>
-</th:block>
-</table>
-<style>
+	
+	<body>
+	<h1 >Database entries - marathons</h1>
+		
+		<table id="center">
+		   <th:block th:each="marathon : ${allMarathons}">
+		   
+		      <tr id="center" >
+		      
+		  		 <td th:utext="'(id)<br/>' + ${marathon.getID_mar()}"></td>
+		         <td th:utext="'(name)<br/>' +${marathon.getName()}"></td>
+		         <td th:utext="'(distance)<br/>' +${marathon.getDistance()}+ ' km'"></td>
+		         <td th:utext="'(place)<br/>' +${marathon.getPlace()}"></td>
+		         <td th:utext="'(date)<br/>' +${marathon.getDate()}"></td>
+		         <td th:utext="'(time)<br/>' +${marathon.getTime()}"></td>
+		         <td> <button th:onclick="|window.location.href='/o/update-marathon/__${marathon.getID_mar()}__'|"  class="btn btn-outline-primary">Update Marathon</button></td>
+		         <td> <button th:onclick="|window.location.href='/a/delete-marathon/__${marathon.getID_mar()}__'|"  class="btn btn-outline-primary">Delete Marathon</button></td>
+		        
+		      </tr>
+		      
+		   </th:block>
+		</table>
+		
+		
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+		crossorigin="anonymous"></script>	
+	
+	<style>
 span {
 	font-family: proxima-nova, sans-serif !important;
 	font-style: normal;
@@ -101,5 +119,6 @@ tr:hover{
 			transition: all 0.3s ease 0s;
 		}
 		</style>
-</body>
+	</body>
+	
 </html>

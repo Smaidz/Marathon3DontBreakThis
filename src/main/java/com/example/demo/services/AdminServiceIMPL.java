@@ -39,27 +39,56 @@ public class AdminServiceIMPL implements AdminService{
 		}
 		return tempList;
 	}
+	
+	@Override
+	public void adminUpdateUserById(User user, long id) {
+		if(userRepo.existsById(id) && user != null) {
+			User userUpdate = userRepo.findById(id).get();
+			userUpdate.setName(user.getName());
+			userUpdate.setSurname(user.getSurname());
+			userUpdate.setEmail(user.getEmail());
+			userUpdate.setPassword(userUpdate.getPassword());
+			userUpdate.setBirthDate(userUpdate.getBirthDate());
+			userUpdate.setIsSubscribed(user.getIsSubscribed());
+			userRepo.save(userUpdate);
+		}
+	}
+	
+	@Override
+	public ArrayList<Results> getAllResults() {
+		ArrayList<Results> tempList = new ArrayList<Results>();
+		for (Results res:resultRepo.findAll()) {
+			if(res != null)
+				tempList.add(res);
+		}
+		return tempList;
+	}
+
+	
 
 	@Override
 	public void uploadTestData() {
 		
 		
-		Organizer admin = new Organizer("Administrator", "AdminLogin", "AdminPass", "admin@pasts.ru");
-		admin.setAdmin();
-		admin.setFirstLogin(false);
-		organizerRepo.save(admin);
-
-			Marathon m1 = new Marathon("Ventspils Skrien", 40, "Ventspils", "01.01.2019", "1200");
-			Marathon m2 = new Marathon("Rigas pusmaratons", 20, "Riga", "01.01.2019", "1200");
-			Marathon m3 = new Marathon("Lielais skrejiens", 40, "Ventspils", "01.01.2019", "1200");
+			Organizer admin = new Organizer("Administrator", "AdminLogin", "AdminPass", "admin@pasts.ru");
+			admin.setAdmin();
+			admin.setFirstLogin(false);
+			organizerRepo.save(admin);
 			
-			User u1 = new User("Janis", "Berzins", "email@domain.com", "password", "14.04.1991", Gender.Male, true);
-			User u2 = new User("Liene", "Liepa", "email@pasts.lv", "password", "21.12.1993", Gender.Female, false);
-			
-			Organizer o1 = new Organizer("OrganizerABC", "OrgLogin1", "orgpassword", "orgemail@pasts.ru");
+			Organizer o1 = new Organizer("OrganizerABC", "ABCLogin", "ABCpassword", "abcemail@pasts.ru");
+			Organizer o2 = new Organizer("OrganizerQWY", "QWYLogin", "QWYpassword", "qwyemail@pasts.net");
 			
 			organizerRepo.save(o1);
 	
+
+			Marathon m1 = new Marathon("Ventspils Skrien", 40, "Ventspils", "25.07.2019", "1200", o1);
+			Marathon m2 = new Marathon("Rigas pusmaratons", 20, "Riga", "12.07.2019", "1200", o1);
+			Marathon m3 = new Marathon("Lielais skrejiens", 40, "Ventspils", "01.01.2019", "1200", o2);
+			
+			User u1 = new User("Janis", "Berzins", "janberzins@domain.com", "password", "14.04.1991", Gender.Male, true);
+			User u2 = new User("Liene", "Liepa", "lliene@pasts.lv", "password", "21.12.1993", Gender.Female, false);
+			
+			
 			userRepo.save(u1);
 			userRepo.save(u2);
 	
@@ -81,4 +110,6 @@ public class AdminServiceIMPL implements AdminService{
 		
 		
 	}
+	
+	
 }

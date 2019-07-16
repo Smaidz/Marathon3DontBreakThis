@@ -18,12 +18,12 @@
 	<div style="margin-bottom:15px;" id="center">
 		<h2><img style="width:10%; margin-right:10px;" src="https://cdn4.iconfinder.com/data/icons/free-large-boss-icon-set/512/Supervisor.png" th:text="${org.getName()}"></h2>
 		
-		<button th:onclick="|window.location.href='/u/marathon-view'|"  class="btn btn-outline-primary">View Marathons</button>
+		<button th:onclick="|window.location.href='/o/marathon-view-org'|"  class="btn btn-outline-primary">View Marathons</button>
 		<button th:onclick="|window.location.href='/o/add-result'|"  class="btn btn-outline-primary">Add result</button>
 		<button th:onclick="|window.location.href='/o/add-marathon/${org.getId_org()}'|"  class="btn btn-outline-primary">Add Marathon</button>
 		<button th:onclick="|window.location.href='/o/marathon-select'|"  class="btn btn-outline-primary">Update Marathon</button>
 		<button th:onclick="|window.location.href='/o/export-data/${org.getId_org()}'|"  class="btn btn-outline-primary">Export Data</button>
-		<button th:onclick="|window.location.href='/o/marathon-inform/${org.getId_org()}'|"  class="btn btn-outline-primary">Inform Users About Marathons</button>
+	<!-- 	<button th:onclick="|window.location.href='/o/marathon-inform/${org.getId_org()}'|"  class="btn btn-outline-primary">Inform Users About Marathons</button> -->
 	</div>
 	
 	</div>

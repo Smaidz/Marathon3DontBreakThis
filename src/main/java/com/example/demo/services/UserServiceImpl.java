@@ -137,6 +137,31 @@ public class UserServiceImpl implements UserService {
 		}
 		return tempList;
 	}
+
+	@Override
+	public boolean deleteUserByID(long usr_id) {
+		if(userRepo.existsById(usr_id)) {
+			userRepo.deleteById(usr_id);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public ArrayList<Results> findResultsForMarathon(long mar_id) {
+		// TODO Auto-generated method stub
+		
+		Marathon marathon =marathonRepo.findById(mar_id).get();
+		ArrayList<Results> resultTemp= new ArrayList<Results>();
+		for(Results r: resultsRepo.findByMarathon(marathon))
+		{
+			
+				resultTemp.add(r);
+		}
+		return resultTemp;
+	}
+	
+
 	
 	
 }

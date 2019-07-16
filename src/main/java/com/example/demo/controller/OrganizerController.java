@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import com.example.demo.model.Organizer;
 import com.example.demo.model.Results;
 import com.example.demo.model.User;
 import com.example.demo.services.AdminServiceIMPL;
+import com.example.demo.services.EmailServiceImpl;
 import com.example.demo.services.MarathonServiceImpl;
 import com.example.demo.services.OrganizerServiceImpl;
 import com.example.demo.services.UserServiceImpl;
@@ -32,6 +35,8 @@ public class OrganizerController {
 	UserServiceImpl userServiceImpl;
 	@Autowired
 	MarathonServiceImpl marathonServiceImpl;
+	@Autowired
+	EmailServiceImpl emailServiceImpl;
 	
 	@GetMapping(value="/add-result")
 	public String addResult(Results results, Model model) {
@@ -70,17 +75,15 @@ public class OrganizerController {
 	}
 	
 	@PostMapping(value="/add-marathon/{id}")
-	public String addNewCarPost(@PathVariable(name="id")long id, @Valid Marathon marathon, BindingResult bindingResult) {
+	public String addNewCarPost(@PathVariable(name="id")long id, @Valid Marathon marathon, Organizer organizer, BindingResult bindingResult) throws IOException, MessagingException {
 		
 		if(bindingResult.hasErrors())
 			return "add-marathon";
 		else
 			marathonServiceImpl.insertNewMarathon(id, marathon);
+			emailServiceImpl.sendToSubs(organizer);
 		return "redirect:/u/marathon-view";
 	}
-	
-	
-	
 	
 	@GetMapping(value="/update-marathon/{id}")
 	public String updateCar(@PathVariable(name="id")long id, Model model) {
@@ -94,11 +97,32 @@ public class OrganizerController {
 		return "redirect:/u/marathon-view";
 	}
 	
-	@GetMapping(value = "/export-data")
-	public String exportData(Model model) {
-		organizerServiceImpl.exportDataExcel();
-		//model.addAttribute("object", );
-	return "export-data";
+	@GetMapping(value = "/export-data/{id}")
+	public String exportDataGet(@PathVariable(name="id")long id, Model model,Organizer organizer) {
+		ArrayList<Marathon> tempList=organizerServiceImpl.findMarathonByOrganizerById(id);
+		
+		model.addAttribute("marathons",tempList );
+		return "export-data";
+	}
+	@PostMapping(value="/export-data/{id}")
+	public String exportDataGet(@PathVariable(name="id")long id,Organizer organizer) {
+		System.out.println(organizer.getMarathons().size());
+		
+	
+		ArrayList<Marathon> tempList=new ArrayList<>();
+		for(Marathon m:organizer.getMarathons())
+		{
+			tempList.add(m);
+			System.out.println(m.getID_mar());
+		}
+		if(organizer.getMarathons().size()==1)
+			organizerServiceImpl.exportOneMarathonExcel(tempList.get(0).getID_mar());
+		if(organizer.getMarathons().size()>1)
+		{
+				organizerServiceImpl.exportMarathonsExcel(id, tempList);
+		}
+		
+		return "export-data-ok";
 	}
 	
 	@GetMapping(value="/org-auth")
@@ -173,6 +197,13 @@ public class OrganizerController {
 	    }
 	    
 	    return "marathon-inform";	
+	}
+	
+	
+	@GetMapping(value="/marathon-view-org")
+	public String marathonView(Model model) {
+		model.addAttribute("allMarathons", marathonServiceImpl.findAllMarathons());
+		return "marathon-view-org";
 	}
 	
 }

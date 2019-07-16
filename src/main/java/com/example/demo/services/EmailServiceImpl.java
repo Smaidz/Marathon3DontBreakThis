@@ -57,10 +57,10 @@ public class EmailServiceImpl implements EmailService{
 				organizerServiceImpl.exportDataExcel();
 				listOfToAddress.add(new InternetAddress(temp.getEmail()));
 				helper.setTo(temp.getEmail());
-				helper.setText("Here are your test results, have a nice day.");
+				helper.setText("Here are your marathon results, have a nice day.");
 				helper.setSubject("Marathon results");
 				FileSystemResource file 
-			      = new FileSystemResource(new File("/home/levsgordejevs/Documents/WORKSPACE/Marathon3DontBreakThis-Eduards/src/main/resources/export/MarathonExcel.xlsx"));
+			      = new FileSystemResource(new File("/home/s8_spila_e/Downloads/Marathon3DontBreakThis/MarathonExcel.xlsx"));
 				helper.addAttachment("MarathonExcel.xlsx", file);
 				sender.send(message);
 			}

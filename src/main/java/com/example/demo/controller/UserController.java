@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +114,33 @@ public class UserController {
 		userServiceImpl.updateUserById(user, id);
 		return "redirect:/u/user-pannel/"+id;
 	}	
+	
+	@GetMapping(value = "/results/{usr_id}")
+	public String resultsAllUsersGet(@PathVariable(name = "usr_id") long usr_id, Model model,User user) 
+	{
+		model.addAttribute("marathons", userServiceImpl.findMyMarathons(usr_id));
+		return "results";
+	}
+	@PostMapping(value="/results/{usr_id}")
+	public String resultsAllUsersPost(@PathVariable(name = "usr_id") long usr_id, User user) 
+	{
+		System.out.println(user.getMarathons().size());
+		ArrayList<Marathon> tempList =new ArrayList<Marathon>();
+		for(Marathon m:user.getMarathons())
+		{
+			tempList.add(m);
+		}
+		userServiceImpl.findResultsForMarathon(tempList.get(0).getID_mar());
+		return "redirect:/u/results/{usr_id}/"+tempList.get(0).getID_mar();
+	}
+	
+	@GetMapping(value = "/results/{usr_id}/{mar_id}")
+	public String resultsAllUsersGet(@PathVariable(name = "usr_id") long usr_id,@PathVariable(name = "mar_id") long mar_id, Model model) 
+	{
+		
+		model.addAttribute("allResults", userServiceImpl.findResultsForMarathon(mar_id));
+		return "result-view";
+	}
 }
 
 
